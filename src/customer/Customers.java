@@ -35,5 +35,5 @@ public abstract class Customers {
         return  listDetails;
     }
 
-    public abstract void addSuburb(String suburbCode);
+    public void addSuburb(String suburbCode){};
 }

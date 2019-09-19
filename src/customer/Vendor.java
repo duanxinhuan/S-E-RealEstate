@@ -8,6 +8,8 @@ public class Vendor extends VLCustomers {
     public Vendor(String customerId, String passWord, String name, String emailAddress) {
         super(customerId, passWord, name, emailAddress);
     }
+
+
 }
 
 

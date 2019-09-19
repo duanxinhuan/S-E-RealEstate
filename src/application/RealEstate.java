@@ -14,7 +14,7 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class RealEstate<num> {
-    private HashMap<Integer, String> suburb_list = new HashMap<Integer, String>();
+    private HashMap<String, String> suburb_list = new HashMap<String, String>();
     private Scanner sc = new Scanner(System.in);
     Customers current_customer;
     int choice;
@@ -156,11 +156,11 @@ public class RealEstate<num> {
 
     private void addSuburb() {
         System.out.println(suburb_list);
-        int keyCheck = sc.nextInt();
+        String keyCheck = sc.next();
        boolean isKeyPresent = suburb_list.containsKey(keyCheck);
-          if (isKeyPresent == true)
-          {System.out.println("suburb added");
-              current_customer.addSuburb();}
+          if (isKeyPresent == true) {
+              System.out.println("suburb added");
+              current_customer.addSuburb(keyCheck);}
           else {System.out.println("suburb doesn't exist");}
       }
 
@@ -173,7 +173,7 @@ public class RealEstate<num> {
             String line = null;
             while((line=reader.readLine())!=null){
                 String item[] = line.split(",",2);
-                suburb_list.put(Integer.parseInt(item[0]),item[1]);
+                suburb_list.put(item[0],item[1]);
 
             }
         } catch (Exception e) {

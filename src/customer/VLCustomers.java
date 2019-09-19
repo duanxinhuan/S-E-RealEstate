@@ -5,7 +5,7 @@ import property.Type;
 
 import java.util.ArrayList;
 
-public class VLCustomers extends Customers {
+public abstract class VLCustomers extends Customers {
     private ArrayList<String> propertyList = new ArrayList<String>();
     public VLCustomers(String customerId, String passWord,String name, String emailAddress) {
         super(customerId, passWord, name, emailAddress);

@@ -12,6 +12,7 @@ public class Landlord extends VLCustomers {
         super(customerId, passWord, name, emailAddress);
     }
 
+
     public Property addProperty(String id, String address, String suburbCode, Type propertyType, int numOfBedroom,
                                 int numOfBath, int numOfCarSpace, double weeklyRent, double acceptableDuration){
         Property property = new Property(id, address, suburbCode, propertyType,numOfBedroom,
