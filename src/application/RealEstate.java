@@ -3,17 +3,17 @@ package application;
 import customer.*;
 
 
-import java.io.FileNotFoundException;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Iterator;
+
 import java.util.Scanner;
 
-import static java.lang.System.exit;
 
-public class RealEstate<num> {
+
+public class RealEstate {
     private HashMap<String, String> suburb_list = new HashMap<String, String>();
     private Scanner sc = new Scanner(System.in);
     Customers current_customer;

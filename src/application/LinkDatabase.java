@@ -76,17 +76,18 @@ public class LinkDatabase {
 
     public static String logIn(String emailAddress, String passWord  ) throws SQLException {
         String customer_details = null;
-
+        boolean isEmailExist = true;
         String query = "select emailAddress from customer";
         PreparedStatement preparedStmt = connection.prepareStatement(query);
         ResultSet rs=preparedStmt.executeQuery();
         while(rs.next()){
-            if(emailAddress.equals(rs.getString(1)))
+            if(emailAddress.equals(rs.getString(1))){
+                isEmailExist = false;
                 break;
-
-            else
-                System.out.println("email doesn't exists");
+            }
         }
+        if(isEmailExist)
+            System.out.println("email doesn't exists");
 
         // login from database
 
@@ -98,8 +99,9 @@ public class LinkDatabase {
                 System.out.println("success！");
                 customer_details = rs.getInt(1) + "_" + rs.getString(2) + "_"
                         +rs.getString(3) +"_" + rs.getString(4);
-
+                break;
             }
+         System.out.println("Wrong pass world");
         }
 
         return customer_details;
