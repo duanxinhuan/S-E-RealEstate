@@ -109,7 +109,7 @@ public class RealEstate {
         int num=sc.nextInt();
         switch(num){
             case 1:
-                addSuburb();
+                sell();
             case 2:
                 System.exit(0);
         }
@@ -121,13 +121,14 @@ public class RealEstate {
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                sell();
+                lease();
             case 2:
                 System.exit(0);
         }
     }
 
-
+    private void lease() {
+    }
 
 
     public void renter() {
@@ -135,7 +136,7 @@ public class RealEstate {
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                rent();
+                addSuburb();
             case 2:
                 System.exit(0);
         }
