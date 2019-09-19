@@ -6,4 +6,5 @@ public class Renter extends BRCustomers {
     public Renter(String customerId, String passWord, String name, String emailAddress) {
         super(customerId, passWord, name, emailAddress);
     }
+
 }

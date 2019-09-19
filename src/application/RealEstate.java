@@ -142,6 +142,7 @@ public class RealEstate<num> {
     }
 
     private void sell() {
+
     }
 
     private void rent() {
