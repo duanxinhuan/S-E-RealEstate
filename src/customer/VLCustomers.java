@@ -1,7 +1,6 @@
 package customer;
 
 import property.Property;
-import property.SaleProperty;
 import property.Type;
 
 import java.util.ArrayList;
@@ -14,8 +13,8 @@ public class VLCustomers extends Customers {
 
     public Property addProperty(String id, String address, String suburbCode, Type propertyType, int numOfBedroom,
                                 int numOfBath, int numOfCarSpace, double minPrice){
-        Property property = new SaleProperty(id, address, suburbCode, propertyType,numOfBedroom,
-                numOfBath,numOfCarSpace,minPrice ) ;
+        Property property = new Property(id, address, suburbCode, propertyType,numOfBedroom,
+                numOfBath,numOfCarSpace) ;
         propertyList.add(id);
         return property;
     }

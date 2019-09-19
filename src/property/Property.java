@@ -1,6 +1,6 @@
 package property;
 
-public abstract class Property {
+public class Property {
 
     private String id;
     private String address;

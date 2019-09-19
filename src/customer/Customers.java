@@ -34,4 +34,6 @@ public abstract class Customers {
 
         return  listDetails;
     }
+
+    public abstract void addSuburb();
 }

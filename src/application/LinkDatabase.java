@@ -32,7 +32,8 @@ public class LinkDatabase {
 
         try {
             connection = DriverManager.
-                    getConnection("jdbc:mysql://" + "database-2.clfr5ittcqg1.ap-southeast-2.rds.amazonaws.com" + ":" + 3306 + "/" + "realestate", "duan", "duan953280");
+                    getConnection("jdbc:mysql://" + "database-2.clfr5ittcqg1.ap-southeast-2.rds.amazonaws.com"
+                            + ":" + 3306 + "/" + "realestate", "duan", "duan953280");
         } catch (SQLException e) {
             System.out.println("Connection Failed!:\n" + e.getMessage());
         }
