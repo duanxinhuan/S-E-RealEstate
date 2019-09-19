@@ -121,21 +121,30 @@ public class RealEstate<num> {
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                addSuburb();
+                sell();
             case 2:
                 System.exit(0);
         }
     }
+
+
+
 
     public void renter() {
         System.out.println("enter 1 for add suburb, 2 for exit the program");
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                addSuburb();
+                rent();
             case 2:
                 System.exit(0);
         }
+    }
+
+    private void sell() {
+    }
+
+    private void rent() {
     }
 
     // login function
