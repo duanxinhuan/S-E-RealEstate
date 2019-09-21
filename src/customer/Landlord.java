@@ -1,23 +1,35 @@
 package customer;
 
+import java.util.ArrayList;
+
 import property.Property;
 import property.Type;
 
 
 public class Landlord extends VLCustomers {
 
-    int numOfRent = 0;
+    private ArrayList<Property> properties = new ArrayList<Property>();
+	private int numOfRent = 0;
+	private boolean negotiate = false;
 
     public Landlord(String customerId, String passWord,String name, String emailAddress) {
         super(customerId, passWord, name, emailAddress);
     }
 
-
-    public Property addProperty(String id, String address, String suburbCode, Type propertyType, int numOfBedroom,
-                                int numOfBath, int numOfCarSpace, double weeklyRent, double acceptableDuration){
-        Property property = new Property(id, address, suburbCode, propertyType,numOfBedroom,
-                numOfBath,numOfCarSpace) ;
-        getPropertyList().add(id);
-        return property;
+    public void addProperty(Property property) {
+        properties.add(property);
+        numOfRent++;
+    }
+    
+    public int getNumOfRent() {
+    	return this.numOfRent;
+    }
+    
+    public boolean getNegotiate() {
+    	return negotiate;
+    }
+    
+    public void setNegotiate() {
+    	this.negotiate = true;
     }
 }
