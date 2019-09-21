@@ -15,7 +15,7 @@ public class Property {
     private boolean isAssigned = false;
     private String[] type;
     private ArrayList<Rental> rentals = new ArrayList<Rental>();
-    private ArrayList<Forsale> forsales = new ArrayList<Forsale>();
+    private ArrayList<Forsale> forSales = new ArrayList<Forsale>();
     private Scanner sc = new Scanner(System.in);
 
     public Property(String id, String address, String suburbCode, String propertyType, int numOfBedroom, int numOfBath,

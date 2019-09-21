@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 //import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.*;
+
 
 //import static java.lang.System.exit;
 
@@ -160,7 +162,6 @@ public class RealEstate {
           }
       }
 
-
     public void loadSuburb(){
         try{
             System.out.println("Loading suburb list...");
@@ -213,28 +214,31 @@ public class RealEstate {
     }
     
     public boolean checkID(String id) {
-    	
-    	if(id.matches("[^a-zA-Z0-9]"))
-    		System.out.println("Invalid input!!!");
-    	return id.matches("[^a-zA-Z0-9]");
+        String pattern = "[P][0-9]+";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(id);
+        boolean b = m.matches();
+
+//        boolean valid = id.matches(".*[^a-zA-Z0-9_-]+");
+   	if(!b)
+		System.out.println("Invalid input!!!");
+	return b;
     }
     
-    public void propertyAlreadyExist(String arr[]) {
-    	PreExistException ex = new PreExistException();
-    	
-    	try {
-    		for(int i=0; i<pr.size(); i++) {
-	        	if(pr.get(i).getId().equals(arr[0])) {
-	        		throw ex;
-	        	}
-	        }
-        	pr.add(new Property(arr[0],arr[1],arr[2],arr[3],Integer.parseInt(arr[4]),Integer.parseInt(arr[5]),Integer.parseInt(arr[6])));
+    public boolean propertyAlreadyExist(String arr[]) {
+        PreExistException ex = new PreExistException();
 
-    	}
-    	catch(Exception e) {
-    		System.out.println(ex.toString());
-    	}	 
+
+        for (int i = 0; i < pr.size(); i++) {
+            if (pr.get(i).getId().equals(arr[0]))
+                return false;
+        }
+        pr.add(new Property(arr[0], arr[1], arr[2], arr[3], Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6])));
+        return true;
     }
+
+
+
     
     
     public void uploadProperty() {  	
@@ -252,8 +256,18 @@ public class RealEstate {
 	    	checkID(arr[0]);
 	    	
 	    	// check if this property already exists in the system
-	    	propertyAlreadyExist(arr);
-    	}   
+            do{
+	    	if(propertyAlreadyExist(arr))
+	    	    System.out.println("Property added! ");
+
+	    	else{
+	    	    System.out.println("property Id already exists!");
+	    	    System.out.printf("please enter a new Id:");
+	    	    String Id = sc.next();
+	    	    arr[0] = Id;
+            }
+            }while(!propertyAlreadyExist(arr));
+    	}
     }
 }
 

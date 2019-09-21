@@ -3,7 +3,7 @@ package customer;
 import java.util.ArrayList;
 
 import property.Property;
-import property.Type;
+
 
 
 public class Landlord extends VLCustomers {
