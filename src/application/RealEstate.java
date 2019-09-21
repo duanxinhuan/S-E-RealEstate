@@ -64,8 +64,6 @@ public class RealEstate {
 
         cust_array = customer_details.split("_");
 
-
-
             //choose which customer
            System.out.println("choose if you are 1:buyer,2:renter,3:vendor,4:landlord");
             int num = sc.nextInt();
@@ -84,12 +82,12 @@ public class RealEstate {
                     case 3:
                         System.out.println("you chose vendor!");
                         current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                        leaser();
+                        vendor();
                         break;
                     case 4:
                         System.out.println("you chose landlord!");
                         current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                        vendor();
+                        landlord();
                         break;
 
                 }
@@ -116,20 +114,20 @@ public class RealEstate {
 
     }
 
-    private void leaser() {
-        System.out.println("enter 1 for add suburb, 2 for exit the program");
+    private void landlord() {
+        System.out.println("enter 1 for uploading a house, 2 for exit the program");
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                lease();
+                addHouse();
+                break;
             case 2:
                 System.exit(0);
-        }
+        }while(true);
     }
 
-    private void lease() {
+    private void addHouse() {
     }
-
 
     public void renter() {
         System.out.println("enter 1 for add suburb, 2 for exit the program");
@@ -141,6 +139,11 @@ public class RealEstate {
                 System.exit(0);
         }
     }
+
+    private void lease() {
+    }
+
+
 
     private void sell() {
 
