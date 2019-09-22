@@ -12,7 +12,7 @@ public class Vendor extends VLCustomers {
     }
 
     public void addProperty(Property p) {
-
+        numOfSell+=1;
     }
 
 

@@ -4,6 +4,11 @@ import customer.Landlord;
 
 public class Rental {
 
+	public void setRentalId(String rentalId) {
+		this.RentalId = rentalId;
+	}
+
+	private String RentalId;
 	private String Status = "W";
 	// "W" is waiting for assign; "A" means assigned, and wait for rent; "R" means rental finished;
 	private double weeklyRent;

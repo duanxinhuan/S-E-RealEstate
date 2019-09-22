@@ -14,6 +14,7 @@ public class Property {
     private int numOfCarSpace;
     private boolean isAssigned = false;
     private String[] type;
+    private int ownerID;
     private ArrayList<Rental> rentals = new ArrayList<Rental>();
     private ArrayList<Forsale> forSales = new ArrayList<Forsale>();
     private Scanner sc = new Scanner(System.in);
