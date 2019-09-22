@@ -107,18 +107,18 @@ public class LinkDatabase {
         return customer_details;
     }
 
-    public static void uploadProperty(Property p){
-        try{
+    public static void uploadProperty(Property p) {
+        try {
             query = "insert into property(popertyID, address, suburbCode,propertyType,bedrommNumber," +
                     " bathroomNumber,carspaceNumber)" + "values(?, ?, ?, ?, ?, ?, ?)";
             preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1,p.getId());
-            preparedStmt.setString(2,p.getAddress());
-            preparedStmt.setString(3,p.getSuburbCode());
-            preparedStmt.setString(4,p.getPropertyType());
-            preparedStmt.setInt(5,p.getNumOfBedroom());
-            preparedStmt.setInt(6,p.getNumOfBath());
-            preparedStmt.setInt(7,p.getNumOfCarSpace());
+            preparedStmt.setString(1, p.getId());
+            preparedStmt.setString(2, p.getAddress());
+            preparedStmt.setString(3, p.getSuburbCode());
+            preparedStmt.setString(4, p.getPropertyType());
+            preparedStmt.setInt(5, p.getNumOfBedroom());
+            preparedStmt.setInt(6, p.getNumOfBath());
+            preparedStmt.setInt(7, p.getNumOfCarSpace());
             preparedStmt.execute();
         } catch (Exception e) {
             e.printStackTrace();

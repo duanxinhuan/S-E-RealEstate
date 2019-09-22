@@ -26,6 +26,6 @@ class LinkDatabaseTest {
 
     @Test
     void register() {
-        LinkDatabase.register("12345678","shi", "shi@163.com" );
+        LinkDatabase.register("12345678", "shi", "shi@163.com");
     }
 }
