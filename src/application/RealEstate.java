@@ -21,7 +21,6 @@ import java.util.regex.*;
 public class RealEstate {
     private HashMap<Integer, String> suburb_list = new HashMap<Integer, String>();
     private ArrayList<Property> pr = new ArrayList<Property>();
- 
     private Scanner sc = new Scanner(System.in);
     Customers current_customer;
     int choice;
@@ -237,10 +236,6 @@ public class RealEstate {
     }
     // check duplicate ID
 
-
-
-    
-    
     public void uploadProperty() {  	
     	String[] arr;
         boolean valid =false;
@@ -271,7 +266,15 @@ public class RealEstate {
 
             Property p = new Property(arr[0], arr[1], arr[2], arr[3],
                     Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
+
+            if (current_customer.getClass().getName().equals("Landlord")){
+                System.out.println("input your your weekly rent/contract length");
+                input = sc.next();
+                arr = input.split("/", 2);
+                p.addRental(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
+            }
             pr.add(p);
+            current_customer.addProperty(p);
     	}
     }
 }
