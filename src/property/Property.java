@@ -2,7 +2,7 @@ package property;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import property.ForSale;
 public class Property {
 
     private String id;
@@ -16,7 +16,7 @@ public class Property {
     private String[] type;
     private int ownerID;
 	private ArrayList<Rental> rentals = new ArrayList<Rental>();
-    private ArrayList<Forsale> forSales = new ArrayList<Forsale>();
+    private ArrayList<ForSale> forSales = new ArrayList<ForSale>();
     private Scanner sc = new Scanner(System.in);
 
     public Property(String id, String address, String suburbCode, String propertyType, int numOfBedroom, int numOfBath,
@@ -117,8 +117,8 @@ public class Property {
     	rentals.add(r1);
 	}
 
-	public void addForsale(){
-		forSales.add(new Forsale());
+	public void addForSale(){
+		forSales.add(new ForSale());
 	}
 	
 	public boolean checkPropertyType(String propertyType) {
