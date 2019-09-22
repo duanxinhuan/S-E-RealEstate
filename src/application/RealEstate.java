@@ -110,11 +110,11 @@ public class RealEstate {
     }
 
     private void vendorLogin() {
-        System.out.println("enter 1 for add suburb, 2 for exit the program");
+        System.out.println("enter 1 for uploading a property, 2 for exit the program");
         int num=sc.nextInt();
         switch(num){
             case 1:
-                addSuburb();
+                uploadProperty();
             case 2:
                 System.exit(0);
         }
@@ -122,11 +122,11 @@ public class RealEstate {
     }
 
     private void landlordLogin() {
-        System.out.println("enter 1 for add suburb, 2 for exit the program");
+        System.out.println("enter 1 for uploading a property, 2 for exit the program");
         int num=sc.nextInt();
         switch(num) {
             case 1:
-                addSuburb();
+                uploadProperty();
             case 2:
                 System.exit(0);
         }
@@ -219,23 +219,23 @@ public class RealEstate {
         Matcher m = p.matcher(id);
         boolean b = m.matches();
 
-//        boolean valid = id.matches(".*[^a-zA-Z0-9_-]+");
-   	if(!b)
-		System.out.println("Invalid input!!!");
-	return b;
+   	    if(!b)
+		   System.out.println("Invalid input!!!");
+	    return b;
     }
-    
+    // check if Id starts with "P"
+
     public boolean propertyAlreadyExist(String arr[]) {
         PreExistException ex = new PreExistException();
-
 
         for (int i = 0; i < pr.size(); i++) {
             if (pr.get(i).getId().equals(arr[0]))
                 return false;
         }
-        pr.add(new Property(arr[0], arr[1], arr[2], arr[3], Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6])));
+
         return true;
     }
+    // check duplicate ID
 
 
 
@@ -243,6 +243,7 @@ public class RealEstate {
     
     public void uploadProperty() {  	
     	String[] arr;
+        boolean valid =false;
     	
     	System.out.println("Please enter the property details in this order: "
     			+ "id, address, suburb code, property type, bedroom number, bathroom number, car space number");
@@ -257,16 +258,20 @@ public class RealEstate {
 	    	
 	    	// check if this property already exists in the system
             do{
-	    	if(propertyAlreadyExist(arr))
-	    	    System.out.println("Property added! ");
+                valid = propertyAlreadyExist(arr);
+	    	    if(valid)
+	    	        System.out.println("Property added! ");
+	    	    else{
+	    	        System.out.println("property Id already exists!");
+	    	        System.out.printf("please enter a new Id:");
+	    	        String Id = sc.next();
+	    	        arr[0] = Id;
+                }
+            }while(!valid);
 
-	    	else{
-	    	    System.out.println("property Id already exists!");
-	    	    System.out.printf("please enter a new Id:");
-	    	    String Id = sc.next();
-	    	    arr[0] = Id;
-            }
-            }while(!propertyAlreadyExist(arr));
+            Property p = new Property(arr[0], arr[1], arr[2], arr[3],
+                    Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
+            pr.add(p);
     	}
     }
 }

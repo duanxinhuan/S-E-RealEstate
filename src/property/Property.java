@@ -101,6 +101,14 @@ public class Property {
 	public void setAssigned(boolean isAssigned) {
 		this.isAssigned = isAssigned;
 	}
+
+	public void addRental(double weeklyRent, double contractLength){
+    	rentals.add(new Rental(weeklyRent, contractLength));
+	}
+
+	public void addForsale(){
+		forSales.add(new Forsale());
+	}
 	
 	public boolean checkPropertyType(String propertyType) {
 		for(int i=0; i<5; i++) {

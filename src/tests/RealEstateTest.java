@@ -25,7 +25,7 @@ class RealEstateTest {
 
     @Test
     void negativeCheckID() {
-       output = r1.checkID("001P");
+       output = r1.checkID("PP001");
         assertFalse(output, "Invalid input!!!");
     }
 

@@ -3,14 +3,16 @@ package property;
 import customer.Landlord;
 
 public class Rental {
-    
-	private Property property;
+
+	private String Status = "W";
+	// "W" is waiting for assign; "A" means assigned, and wait for rent; "R" means rental finished;
 	private double weeklyRent;
     private double contractLength;
     private double managementFee;
 
-    public Rental(Property property, double weeklyRent, double contractLength) {
-    	this.property = property;
+
+    public Rental( double weeklyRent, double contractLength) {
+
     	this.weeklyRent = weeklyRent;
     	this.contractLength = contractLength;
     }
