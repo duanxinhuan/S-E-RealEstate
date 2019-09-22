@@ -1,5 +1,5 @@
 package application;
-import customer.Customers;
+
 import property.Property;
 
 import java.sql.*;

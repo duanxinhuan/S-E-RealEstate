@@ -1,12 +1,11 @@
 package tests;
 
 import application.LinkDatabase;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class LinkDatabaseTest {
     @BeforeEach
