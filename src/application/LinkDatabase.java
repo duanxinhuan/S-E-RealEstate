@@ -5,6 +5,7 @@ import property.Property;
 import property.Rental;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class LinkDatabase {
 
@@ -12,6 +13,7 @@ public class LinkDatabase {
     private static Connection connection = null;
     private static PreparedStatement preparedStmt;
     private static String query;
+    ResultSet rs;
 
 
     public LinkDatabase() throws SQLException {
@@ -142,5 +144,32 @@ public class LinkDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+    }
+
+    public static ArrayList<Property> loadProperty() throws SQLException {
+        ArrayList<Property> pr = new ArrayList<>();
+        Property p = null;
+        query = "select * from property";
+        preparedStmt = connection.prepareStatement(query);
+        ResultSet rs=preparedStmt.executeQuery();
+        while(rs.next()){
+            String propertyId = rs.getString(1);
+            p = new Property(propertyId,rs.getString(2),rs.getString(3),rs.getString(4)
+            , rs.getInt(5),rs.getInt(6),rs.getInt(7));
+            p.setOwnerID(rs.getInt(8));
+            query = "select * from rental where RentalId = ?";
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, propertyId);
+            ResultSet r1 = preparedStmt.executeQuery();
+            while(r1.next()){
+                Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
+                , r1.getDouble(5), r1.getDouble(6));
+                p.addRental(rental);
+            }
+
+            pr.add(p);
+
+        }
+        return pr;
+    }
 }

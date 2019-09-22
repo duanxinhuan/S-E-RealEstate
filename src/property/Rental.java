@@ -20,6 +20,14 @@ public class Rental {
     	this.contractLength = contractLength;
     }
 
+	public Rental(String rentalId, String status, double weeklyRent, double contractLength, double managementFee) {
+		RentalId = rentalId;
+		Status = status;
+		this.weeklyRent = weeklyRent;
+		this.contractLength = contractLength;
+		this.managementFee = managementFee;
+	}
+
 	public void setRentalId(String rentalId) {
 		this.RentalId = rentalId;
 	}
