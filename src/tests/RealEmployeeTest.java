@@ -1,5 +1,7 @@
-package application;
+package tests;
 
+import application.LinkDatabase;
+import application.RealEmployee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
