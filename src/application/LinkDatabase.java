@@ -1,5 +1,8 @@
 package application;
+
 import customer.Customers;
+import property.Property;
+import property.Rental;
 
 import java.sql.*;
 
@@ -7,7 +10,8 @@ public class LinkDatabase {
 
 
     private static Connection connection = null;
-
+    private static PreparedStatement preparedStmt;
+    private static String query;
 
 
     public LinkDatabase() throws SQLException {
@@ -48,11 +52,9 @@ public class LinkDatabase {
 
     public static void register(String passWord,String custName, String emailAddress ){
         try{
-
-
-            String query = " insert into customer (passWord, custName, emailAddress)"
+            query = " insert into customer (passWord, custName, emailAddress)"
                     + " values (?, ?, ?)";
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString (1, passWord);
             preparedStmt.setString (2, custName);
             preparedStmt.setString (3, emailAddress);
@@ -77,8 +79,8 @@ public class LinkDatabase {
     public static String logIn(String emailAddress, String passWord  ) throws SQLException {
         String customer_details = null;
         boolean isEmailExist = true;
-        String query = "select emailAddress from customer";
-        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        query = "select emailAddress from customer";
+        preparedStmt = connection.prepareStatement(query);
         ResultSet rs=preparedStmt.executeQuery();
         while(rs.next()){
             if(emailAddress.equals(rs.getString(1))){
@@ -106,7 +108,39 @@ public class LinkDatabase {
 
         return customer_details;
     }
-//
-//    }
 
+    public static void uploadProperty(Property p, Customers c) {
+        try {
+            query = "insert into property(propertyID, address, suburbCode,propertyType,bedrommNumber," +
+                    " bathroomNumber,carspaceNumber,CustomerId)" + "values(?, ?, ?, ?, ?, ?, ?,?)";
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, p.getId());
+            preparedStmt.setString(2, p.getAddress());
+            preparedStmt.setString(3, p.getSuburbCode());
+            preparedStmt.setString(4, p.getPropertyType());
+            preparedStmt.setInt(5, p.getNumOfBedroom());
+            preparedStmt.setInt(6, p.getNumOfBath());
+            preparedStmt.setInt(7, p.getNumOfCarSpace());
+            preparedStmt.setInt(8, Integer.parseInt(c.getCustomerId()));
+            preparedStmt.execute();
+            for(int i = 0; i< p.getRentals().size(); i++){
+                Rental r = p.getRentals().get(i);
+                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength)" +
+                        "values(?,?,?,?,?)";
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1,r.getRentalId());
+                preparedStmt.setString(2,p.getId());
+                preparedStmt.setString(3,r.getStatus());
+                preparedStmt.setDouble(4,r.getWeeklyRent());
+                preparedStmt.setDouble(5,r.getContractLength());
+                preparedStmt.execute();
+            }
+
+            for(int i = 0; i< p.getRentals().size(); i++){
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

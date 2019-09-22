@@ -1,5 +1,7 @@
 package customer;
 
+import property.Property;
+
 public abstract class Customers {
     private final String customerId;
     private final String passWord;
@@ -36,4 +38,6 @@ public abstract class Customers {
     }
 
     public void addSuburb(String suburbCode){};
+
+    public void addProperty(Property p){};
 }

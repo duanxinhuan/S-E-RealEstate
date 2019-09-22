@@ -3,17 +3,26 @@ package property;
 import customer.Landlord;
 
 public class Rental {
-    
-	private Property property;
+
+
+
+	private String RentalId;
+	private String Status = "W";
+	// "W" is waiting for assign; "A" means assigned, and wait for rent; "R" means rental finished;
 	private double weeklyRent;
     private double contractLength;
     private double managementFee;
 
-    public Rental(Property property, double weeklyRent, double contractLength) {
-    	this.property = property;
+
+    public Rental( double weeklyRent, double contractLength) {
+
     	this.weeklyRent = weeklyRent;
     	this.contractLength = contractLength;
     }
+
+	public void setRentalId(String rentalId) {
+		this.RentalId = rentalId;
+	}
 
     public void setManagementFee(Landlord landlord) {
     	if (landlord.getNumOfRent() >= 2) {
@@ -26,6 +35,7 @@ public class Rental {
         	this.managementFee -= (1.0/100.0);
     	}
     }
+    // set management fee.
     
     public double getWeeklyRent() {
     	return this.weeklyRent;
@@ -38,5 +48,17 @@ public class Rental {
     public double getManagementFee() {
     	return this.managementFee;
     }
-    
+
+	public String getRentalId() {
+		return RentalId;
+	}
+
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+    // change the status when the house is assigned and rented
 }
