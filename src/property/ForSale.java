@@ -9,11 +9,9 @@ public class ForSale {
     private String Status = "A";
     HashMap<Integer,String> offerList = new HashMap<>();
 
-    public ForSale(double minPrice, double commissionRate, double finalPrice, boolean negotiate) {
+    public ForSale(double minPrice, double commissionRate) {
         this.minPrice = minPrice;
         this.CommissionRate = commissionRate;
-        this.FinalPrice = finalPrice;
-        this.Negotiate = false;
     }
     public void setSaleId(String saleId) {
         this.SaleId = saleId;

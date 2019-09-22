@@ -14,7 +14,7 @@ public class Property {
     private int numOfCarSpace;
     private boolean isAssigned = false;
     private String[] type;
-    private int ownerID;
+	private int ownerID;
 	private ArrayList<Rental> rentals = new ArrayList<Rental>();
     private ArrayList<ForSale> forSales = new ArrayList<ForSale>();
     private Scanner sc = new Scanner(System.in);
@@ -47,7 +47,11 @@ public class Property {
 		return rentals;
 	}
 
-	public ArrayList<Forsale> getForSales() {
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
+	}
+
+	public ArrayList<ForSale> getForSales() {
 		return forSales;
 	}
     
@@ -117,8 +121,18 @@ public class Property {
     	rentals.add(r1);
 	}
 
-	public void addForSale(){
-		forSales.add(new ForSale());
+	public void addRental(Rental rental) {
+		rentals.add(rental);
+	}
+
+	public void addForSale(ForSale forSale){
+    	forSales.add(forSale);
+	}
+
+	public void addForSale(double minPrice, double commissionRate){
+		ForSale f1 = new ForSale(minPrice, commissionRate);
+		f1.setSaleId(getId() + "_" + (forSales.size()+1));
+		forSales.add(f1);
 	}
 	
 	public boolean checkPropertyType(String propertyType) {
@@ -130,5 +144,6 @@ public class Property {
 		System.out.println("Invalid Type!!!");
 		return false;
 	}
+
 
 }
