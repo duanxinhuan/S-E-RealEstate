@@ -1,6 +1,8 @@
 package application;
 
+import customer.Customers;
 import property.Property;
+import property.Rental;
 
 import java.sql.*;
 
@@ -107,10 +109,10 @@ public class LinkDatabase {
         return customer_details;
     }
 
-    public static void uploadProperty(Property p) {
+    public static void uploadProperty(Property p, Customers c) {
         try {
-            query = "insert into property(popertyID, address, suburbCode,propertyType,bedrommNumber," +
-                    " bathroomNumber,carspaceNumber)" + "values(?, ?, ?, ?, ?, ?, ?)";
+            query = "insert into property(propertyID, address, suburbCode,propertyType,bedrommNumber," +
+                    " bathroomNumber,carspaceNumber,CustomerId)" + "values(?, ?, ?, ?, ?, ?, ?,?)";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, p.getId());
             preparedStmt.setString(2, p.getAddress());
@@ -119,7 +121,24 @@ public class LinkDatabase {
             preparedStmt.setInt(5, p.getNumOfBedroom());
             preparedStmt.setInt(6, p.getNumOfBath());
             preparedStmt.setInt(7, p.getNumOfCarSpace());
+            preparedStmt.setInt(8, Integer.parseInt(c.getCustomerId()));
             preparedStmt.execute();
+            for(int i = 0; i< p.getRentals().size(); i++){
+                Rental r = p.getRentals().get(i);
+                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength)" +
+                        "values(?,?,?,?,?)";
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1,r.getRentalId());
+                preparedStmt.setString(2,p.getId());
+                preparedStmt.setString(3,r.getStatus());
+                preparedStmt.setDouble(4,r.getWeeklyRent());
+                preparedStmt.setDouble(5,r.getContractLength());
+                preparedStmt.execute();
+            }
+
+            for(int i = 0; i< p.getRentals().size(); i++){
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -15,7 +15,7 @@ public class Property {
     private boolean isAssigned = false;
     private String[] type;
     private int ownerID;
-    private ArrayList<Rental> rentals = new ArrayList<Rental>();
+	private ArrayList<Rental> rentals = new ArrayList<Rental>();
     private ArrayList<Forsale> forSales = new ArrayList<Forsale>();
     private Scanner sc = new Scanner(System.in);
 
@@ -42,6 +42,14 @@ public class Property {
         this.setNumOfBath(numOfBath);
         this.setNumOfCarSpace(numOfCarSpace);
     }
+
+	public ArrayList<Rental> getRentals() {
+		return rentals;
+	}
+
+	public ArrayList<Forsale> getForSales() {
+		return forSales;
+	}
     
 	public String getAddress() {
 		return address;
@@ -104,7 +112,9 @@ public class Property {
 	}
 
 	public void addRental(double weeklyRent, double contractLength){
-    	rentals.add(new Rental(weeklyRent, contractLength));
+		Rental r1 = new Rental(weeklyRent, contractLength);
+		r1.setRentalId(getId() + "_" + (rentals.size()+1));
+    	rentals.add(r1);
 	}
 
 	public void addForsale(){
