@@ -14,7 +14,10 @@ public class Property {
     private int numOfCarSpace;
     private boolean isAssigned = false;
     private String[] type;
-    private int ownerID;
+
+
+
+	private int ownerID;
 	private ArrayList<Rental> rentals = new ArrayList<Rental>();
     private ArrayList<Forsale> forSales = new ArrayList<Forsale>();
     private Scanner sc = new Scanner(System.in);
@@ -115,6 +118,18 @@ public class Property {
 		Rental r1 = new Rental(weeklyRent, contractLength);
 		r1.setRentalId(getId() + "_" + (rentals.size()+1));
     	rentals.add(r1);
+	}
+
+	public void addRental(Rental r){
+    	rentals.add(r);
+	}
+
+	public int getOwnerID() {
+		return ownerID;
+	}
+
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
 	}
 
 	public void addForsale(){
