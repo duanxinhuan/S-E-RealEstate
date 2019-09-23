@@ -15,7 +15,6 @@ public class Rental {
 
 
     public Rental( double weeklyRent, double contractLength) {
-
     	this.weeklyRent = weeklyRent;
     	this.contractLength = contractLength;
     }

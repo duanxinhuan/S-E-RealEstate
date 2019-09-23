@@ -2,7 +2,7 @@ package property;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import property.ForSale;
+
 public class Property {
 
     private String id;
@@ -12,8 +12,7 @@ public class Property {
     private int numOfBedroom;
     private int numOfBath;
     private int numOfCarSpace;
-    private boolean isAssigned = false;
-    private String[] type;
+	private String[] type;
 	private int ownerID;
 	private ArrayList<Rental> rentals = new ArrayList<Rental>();
     private ArrayList<ForSale> forSales = new ArrayList<ForSale>();
@@ -107,12 +106,7 @@ public class Property {
 		this.numOfCarSpace = numOfCarSpace;
 	}
 
-	public boolean isAssigned() {
-		return isAssigned;
-	}
-
 	public void setAssigned(boolean isAssigned) {
-		this.isAssigned = isAssigned;
 	}
 
 	public void addRental(double weeklyRent, double contractLength){
@@ -145,5 +139,7 @@ public class Property {
 		return false;
 	}
 
-
+    public int getOwnerID() {
+        return ownerID;
+    }
 }

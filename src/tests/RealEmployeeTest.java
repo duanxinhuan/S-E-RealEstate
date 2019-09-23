@@ -18,6 +18,6 @@ class RealEmployeeTest {
     void loadProperty() {
         re.loadProperty();
         assertNotNull(re.getPr());
-        System.out.println(re.getPr().get(0).getId());
+        assertEquals("P105",re.getPr().get(0).getId());
     }
 }

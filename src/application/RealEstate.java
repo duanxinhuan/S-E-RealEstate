@@ -87,12 +87,13 @@ public class RealEstate {
                  case 3:
                      System.out.println("you chose vendor!");
                      current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     landlordLogin();
+                     vendorLogin();
+
                      break;
                  case 4:
                      System.out.println("you chose landlord!");
                      current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     vendorLogin();
+                     landlordLogin();
                      break;
 
              }
@@ -266,15 +267,15 @@ public class RealEstate {
 
             Property p = new Property(arr[0], arr[1], arr[2], arr[3],
                     Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
+            p.setOwnerID(Integer.parseInt(current_customer.getCustomerId()));
 
-            if (current_customer.getClass().getName().equals("Landlord")){
+            if (current_customer.getClass().getName().equals("customer.Landlord")){
                 System.out.println("input your your weekly rent/contract length");
                 input = sc.next();
                 arr = input.split("/", 2);
                 p.addRental(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
             }
             pr.add(p);
-            current_customer.addProperty(p);
     	}
     }
 }

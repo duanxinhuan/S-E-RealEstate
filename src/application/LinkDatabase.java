@@ -123,7 +123,7 @@ public class LinkDatabase {
             preparedStmt.setInt(5, p.getNumOfBedroom());
             preparedStmt.setInt(6, p.getNumOfBath());
             preparedStmt.setInt(7, p.getNumOfCarSpace());
-            preparedStmt.setInt(8, Integer.parseInt(c.getCustomerId()));
+            preparedStmt.setInt(8, p.getOwnerID());
             preparedStmt.execute();
             for(int i = 0; i< p.getRentals().size(); i++){
                 Rental r = p.getRentals().get(i);
