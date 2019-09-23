@@ -3,7 +3,6 @@ package application;
 import customer.Customers;
 import property.Property;
 import property.Rental;
-
 import java.sql.*;
 import java.util.ArrayList;
 
