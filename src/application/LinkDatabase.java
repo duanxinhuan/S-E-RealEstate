@@ -111,7 +111,7 @@ public class LinkDatabase {
         return customer_details;
     }
 
-    public static void uploadProperty(Property p, Customers c) {
+    public static void uploadProperty(Property p) {
         try {
             query = "insert into property(propertyID, address, suburbCode,propertyType,bedrommNumber," +
                     " bathroomNumber,carspaceNumber,CustomerId)" + "values(?, ?, ?, ?, ?, ?, ?,?)";
