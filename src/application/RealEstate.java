@@ -19,7 +19,7 @@ import java.util.regex.*;
 //import static java.lang.System.exit;
 
 public class RealEstate {
-    private HashMap<Integer, String> suburb_list = new HashMap<Integer, String>();
+    private HashMap<String, String> suburb_list = new HashMap<String, String>();
     private ArrayList<Property> pr = new ArrayList<Property>();
     private Scanner sc = new Scanner(System.in);
     Customers current_customer;
@@ -103,12 +103,15 @@ public class RealEstate {
 
 
     public void buyerLogin(){
-        System.out.println("enter 1 for add suburb, 2 for exit the program");
-        int num=sc.nextInt();
-        switch(num){
-            case 1:addSuburb();
-            case 2:System.exit(0);
-        }
+
+        do{
+            System.out.println("enter 1 for add suburb, 2 for exit the program");
+            int num=sc.nextInt();
+            switch(num){
+                case 1:addSuburb();
+                break;
+                case 2:System.exit(0);
+        }}while(true);
     }
 
     public void vendorLogin() {
@@ -157,7 +160,7 @@ public class RealEstate {
        boolean isKeyPresent = suburb_list.containsKey(keyCheck);
           if (isKeyPresent == true) {
         	  System.out.println("suburb added");
-              current_customer.addSuburb(keyCheck);
+              current_customer.addSuburb( keyCheck);
           }
           else {
         	  System.out.println("suburb doesn't exist");
@@ -172,7 +175,7 @@ public class RealEstate {
             String line = null;
             while((line=reader.readLine())!=null){
                 String item[] = line.split(",",2);
-                suburb_list.put(Integer.parseInt(item[0]),item[1]);
+                suburb_list.put(item[0],item[1]);
 
             }
             reader.close();
