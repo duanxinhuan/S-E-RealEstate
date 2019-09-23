@@ -36,7 +36,7 @@ class LinkDatabaseTest {
 
     @Test
     void uploadProperty() {
-        LinkDatabase.uploadProperty(p,l);
+        LinkDatabase.uploadProperty(p);
 
     }
 }

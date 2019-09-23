@@ -5,18 +5,21 @@ import application.RealEstate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import property.Property;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RealEstateTest {
     RealEstate r1 = new RealEstate();
+    Property p1 = new Property("P123", "u601 77 Cardigan Street Melbourne", "3052", "unit",3,
+            4,2);
     String[] str1 = {"P123", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
     String[] str2 = {"P223", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
     boolean output;
     @BeforeEach
     void setUp() {
         //id, address, suburb code, property type, bedroom number, bathroom number, car space number
-        r1.propertyAlreadyExist(str1);
+       r1.addProperty(p1);
     }
 
     @AfterEach

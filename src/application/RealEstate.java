@@ -51,7 +51,7 @@ public class RealEstate {
        }while(choice !=3);
     }
 
-    private void login() {
+    public void login() {
         String emailAddress;
         String password;
         String customer_details = null;
@@ -100,6 +100,8 @@ public class RealEstate {
         
     }
 
+
+
     public void buyerLogin(){
         System.out.println("enter 1 for add suburb, 2 for exit the program");
         int num=sc.nextInt();
@@ -109,7 +111,7 @@ public class RealEstate {
         }
     }
 
-    private void vendorLogin() {
+    public void vendorLogin() {
         System.out.println("enter 1 for uploading a property, 2 for exit the program");
         int num=sc.nextInt();
         switch(num){
@@ -121,7 +123,7 @@ public class RealEstate {
 
     }
 
-    private void landlordLogin() {
+    public void landlordLogin() {
         System.out.println("enter 1 for uploading a property, 2 for exit the program");
         int num=sc.nextInt();
         switch(num) {
@@ -149,7 +151,7 @@ public class RealEstate {
 
 
 
-    private void addSuburb() {
+    public void addSuburb() {
         System.out.println(suburb_list);
         String keyCheck = sc.next();
        boolean isKeyPresent = suburb_list.containsKey(keyCheck);
@@ -277,6 +279,10 @@ public class RealEstate {
             }
             pr.add(p);
     	}
+    }
+
+    public void addProperty(Property p){
+        pr.add(p);
     }
 }
 
