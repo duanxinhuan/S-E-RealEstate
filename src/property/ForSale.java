@@ -1,19 +1,34 @@
 package property;
+import customer.Landlord;
+import employees.Employee;
+import employees.SalesConsultant;
+
 import java.util.HashMap;
 public class ForSale {
     private String SaleId;
+    private String Status = "W";
     private double minPrice;
     private double CommissionRate;
+    private String assignedEmployee;
     private double FinalPrice;
     private boolean Negotiate;
-    private String Status = "W";
-    private String assignedEmployee;
     //HashMap<Integer,String> offerList = new HashMap<>();
 
     public ForSale(double minPrice, double commissionRate) {
         this.minPrice = minPrice;
         this.CommissionRate = commissionRate;
     }
+
+    public ForSale(String saleId, String status, double minPrice, double commissionRate, String assignedEmployee) {
+        SaleId = saleId;
+        Status = status;
+        this.minPrice = minPrice;
+        CommissionRate = commissionRate;
+        this.assignedEmployee = assignedEmployee;
+    }
+
+
+
     public void setSaleId(String saleId) {
         this.SaleId = saleId;
     }
@@ -22,8 +37,9 @@ public class ForSale {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(String assignedEmployee) {
-        this.assignedEmployee = assignedEmployee;
+    public void assign(Employee emp){
+        this.Status = "A";
+        this.assignedEmployee = emp.getEmployeeId();
     }
 
     public void setCommissionRate() {

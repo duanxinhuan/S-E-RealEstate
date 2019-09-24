@@ -5,6 +5,7 @@ import property.Property;
 import property.Rental;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LinkDatabase {
 
@@ -13,6 +14,7 @@ public class LinkDatabase {
     private static PreparedStatement preparedStmt;
     private static String query;
     ResultSet rs;
+
 
 
 
@@ -126,27 +128,29 @@ public class LinkDatabase {
             preparedStmt.execute();
             for(int i = 0; i< p.getRentals().size(); i++){
                 Rental r = p.getRentals().get(i);
-                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength)" +
-                        "values(?,?,?,?,?)";
+                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength,employeeId)" +
+                        "values(?,?,?,?,?,?)";
                 preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1,r.getRentalId());
                 preparedStmt.setString(2,p.getId());
                 preparedStmt.setString(3,r.getStatus());
                 preparedStmt.setDouble(4,r.getWeeklyRent());
                 preparedStmt.setDouble(5,r.getContractLength());
+                preparedStmt.setString(6,r.getAssignedEmployee());
                 preparedStmt.execute();
             }
 
             for(int i = 0; i< p.getForSales().size(); i++){
                 ForSale f = p.getForSales().get(i);
-                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength)" +
-                        "values(?,?,?,?,?)";
+                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength,employeeId)" +
+                        "values(?,?,?,?,?,?)";
                 preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1,f.getSaleId());
                 preparedStmt.setString(2,p.getId());
                 preparedStmt.setString(3,f.getStatus());
                 preparedStmt.setDouble(4,f.getMinPrice());
                 preparedStmt.setDouble(5,f.getCommissionRate());
+                preparedStmt.setString(6,f.getAssignedEmployee());
                 preparedStmt.execute();
 
             }
@@ -166,28 +170,45 @@ public class LinkDatabase {
             p = new Property(propertyId,rs.getString(2),rs.getString(3),rs.getString(4)
             , rs.getInt(5),rs.getInt(6),rs.getInt(7));
             p.setOwnerID(rs.getInt(8));
-            query = "select * from rental where RentalId = ?";
+            query = "select * from rental where propertyId = ?";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, propertyId);
             ResultSet r1 = preparedStmt.executeQuery();
             while(r1.next()){
                 Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
-                , r1.getDouble(5), r1.getDouble(6));
+                , r1.getDouble(5), r1.getDouble(6),r1.getString(7));
                 p.addRental(rental);
             }
-            query = "select * from rental where Forsale = ?";
+            query = "select * from rental where propertyId = ?";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, propertyId);
             r1 = preparedStmt.executeQuery();
             while(r1.next()){
-                Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
-                        , r1.getDouble(5), r1.getDouble(6));
-                p.addRental(rental);
+                ForSale forsale = new ForSale(r1.getString(1),r1.getString(2),r1.getDouble(3)
+                        , r1.getDouble(4),r1.getString(5));
             }
 
             pr.add(p);
 
         }
         return pr;
+    }
+
+    public static void showUnassigned(String s) throws SQLException {
+        String details =null;
+        if(s.equals("rental")){
+            query = "select RentalId, propertyId, weeklyRent,contractLength, from rental";
+            preparedStmt=connection.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+            System.out.println("--------unassigned rentals--------");
+            while(rs.next()){
+                int i =1;
+                System.out.println(i + "." + "rentalId:" + rs.getString(1)
+                +"|propertyId:" + rs.getString(2)
+                +"|weeklyRent:" + rs.getDouble(3)
+                +"|contractLength:" + rs.getDouble(4));
+                i++;
+            }
+        }
     }
 }
