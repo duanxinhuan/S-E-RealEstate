@@ -1,5 +1,9 @@
 package employees;
+import java.util.ArrayList;
+public class PropertyManager extends Employee {
 
-public class PropertyManager {
+    public PropertyManager(String employeeId, String passWord, String name) {
 
+        super(employeeId,passWord,name);
+    }
 }
