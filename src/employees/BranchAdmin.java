@@ -1,8 +1,8 @@
 package employees;
 
 public class BranchAdmin extends Employee {
-	public BranchAdmin(String employeeId,String employeeStatus,Double hourlyRate,Double hours ) {
-		super(employeeId,employeeStatus,hourlyRate,hours);
+	public BranchAdmin(String employeeId, String passWord, String name ) {
+		super(employeeId,passWord,name);
 		
 	}
 

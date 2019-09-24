@@ -1,17 +1,9 @@
 package employees;
 import java.util.ArrayList;
-public class PropertyManager {
+public class PropertyManager extends Employee {
 
-    private String empId;
-    private String passWord;
-    private boolean isPartTime = false;
+    public PropertyManager(String employeeId, String passWord, String name) {
 
-    public PropertyManager(String empId, String passWord) {
-        this.empId = empId;
-        this.passWord = passWord;
+        super(employeeId,passWord,name);
     }
-
-
-
-
 }

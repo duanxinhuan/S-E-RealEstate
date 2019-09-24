@@ -3,29 +3,27 @@ package employees;
 import java.util.HashMap;
 public class Employee {
 	private final String employeeId;
-	private final String employeeStatus;
-	private final Double hourlyRate;
+	private String passWord;
+	private String name;
+	private  Double hourlyRate = 20.5;
 	private  Double hours;
+	private boolean isPartTime = false;
 
-	public String getEmployeeId() {
-        return employeeId;
-    }
-	public Employee(String employeeId, String employeeStatus, Double hourlyRate, Double hours) {
+
+	public Employee(String employeeId, String passWord, String name) {
 		this.employeeId = employeeId;
-		this.employeeStatus = employeeStatus;
-		this.hourlyRate = hourlyRate;
-		this.hours = hours;
+		this.passWord = passWord;
+		this.name = name;
 	}
 
-	
-		
-    public String getEmployeeStatus() {
-        return employeeStatus;
-        }
+	public String getEmployeeId() {
+		return employeeId;
+	}
 
 	public Double getHourlyRate() {
 		return hourlyRate;
 	}
+
 	public Double getHours() {
 		return hours;
 	}
