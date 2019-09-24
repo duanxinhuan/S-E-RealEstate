@@ -89,8 +89,9 @@ public class LinkDatabase {
                 break;
             }
         }
-        if(isEmailExist)
+        if(isEmailExist) {
             System.out.println("email doesn't exists");
+        }
 
         // login from database
 

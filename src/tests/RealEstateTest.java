@@ -11,41 +11,50 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RealEstateTest {
     RealEstate r1 = new RealEstate();
-    Property p1 = new Property("P123", "u601 77 Cardigan Street Melbourne", "3052", "unit",3,
-            4,2);
     String[] str1 = {"P123", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
     String[] str2 = {"P223", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
+    Property pr = new Property("P123", "u601 77 Cardigan Street Melbourne", "3052", "unit", 3, 4,2);
     boolean output;
+
     @BeforeEach
     void setUp() {
         //id, address, suburb code, property type, bedroom number, bathroom number, car space number
-       r1.addProperty(p1);
+        r1.addProperty(pr);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void negativeCheckID() {
-       output = r1.checkID("PP001");
+        output = r1.checkID("PP001");
         assertFalse(output, "Invalid input!!!");
     }
 
     @Test
     void positiveCheckID() {
-       output = r1.checkID("P001");
+        output = r1.checkID("P001");
         assertTrue(output);
     }
 
     @Test
     void negativePropertyAlreadyExist() {
         output = r1.propertyAlreadyExist(str1);
-        assertFalse(output);
+        assertFalse(output, "Property already exists!");
     }
     @Test
     void positivePropertyAlreadyExist() {
         output = r1.propertyAlreadyExist(str2);
         assertTrue(output);
+    }
+
+    @Test
+    void negativeCheckEmailFormat() {
+        output = r1.checkEmailFormat("michaelyue123@gmail.wer");
+        assertFalse(output, "Wrong Email Type!");
+    }
+
+    @Test
+    void positiveCheckEmailFormat() {
+        output = r1.checkEmailFormat("michaelyue123@gmail.com");
+        assertFalse(output);
     }
 }
