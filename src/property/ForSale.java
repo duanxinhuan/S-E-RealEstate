@@ -6,8 +6,9 @@ public class ForSale {
     private double CommissionRate;
     private double FinalPrice;
     private boolean Negotiate;
-    private String Status = "A";
-    HashMap<Integer,String> offerList = new HashMap<>();
+    private String Status = "W";
+    private String assignedEmployee;
+    //HashMap<Integer,String> offerList = new HashMap<>();
 
     public ForSale(double minPrice, double commissionRate) {
         this.minPrice = minPrice;
@@ -15,6 +16,14 @@ public class ForSale {
     }
     public void setSaleId(String saleId) {
         this.SaleId = saleId;
+    }
+
+    public String getAssignedEmployee() {
+        return assignedEmployee;
+    }
+
+    public void setAssignedEmployee(String assignedEmployee) {
+        this.assignedEmployee = assignedEmployee;
     }
 
     public void setCommissionRate() {
@@ -47,9 +56,9 @@ public class ForSale {
         return this.Status;
     }
 
-    public HashMap<Integer, String> getOfferList() {
-        return this.offerList;
-    }
+//    public HashMap<Integer, String> getOfferList() {
+//        return this.offerList;
+//    }
 
     public boolean isNegotiate() {
         return this.Negotiate;

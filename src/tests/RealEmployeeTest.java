@@ -1,7 +1,7 @@
 package tests;
 
-import application.LinkDatabase;
-import application.RealEmployee;
+import realestate_system.LinkDatabase;
+import realestate_system.RealEmployee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
