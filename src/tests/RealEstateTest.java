@@ -1,8 +1,7 @@
 package tests;
 
-import application.RealEstate;
+import realestate_system.RealEstate;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import property.Property;
@@ -46,15 +45,4 @@ class RealEstateTest {
         assertTrue(output);
     }
 
-    @Test
-    void negativeCheckEmailFormat() {
-        output = r1.checkEmailFormat("michaelyue123@gmail.wer");
-        assertFalse(output, "Wrong Email Type!");
-    }
-
-    @Test
-    void positiveCheckEmailFormat() {
-        output = r1.checkEmailFormat("michaelyue123@gmail.com");
-        assertFalse(output);
-    }
 }

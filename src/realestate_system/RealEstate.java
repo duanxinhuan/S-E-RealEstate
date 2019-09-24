@@ -1,4 +1,4 @@
-package application;
+package realestate_system;
 
 import java.util.*;
 import customer.*;

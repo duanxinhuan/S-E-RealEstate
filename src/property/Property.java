@@ -111,7 +111,7 @@ public class Property {
 
 	public void addRental(double weeklyRent, double contractLength){
 		Rental r1 = new Rental(weeklyRent, contractLength);
-		r1.setRentalId(getId() + "_" + (rentals.size()+1));
+		r1.setRentalId(getId() + "_R" + (rentals.size()+1));
     	rentals.add(r1);
 	}
 
@@ -125,7 +125,7 @@ public class Property {
 
 	public void addForSale(double minPrice, double commissionRate){
 		ForSale f1 = new ForSale(minPrice, commissionRate);
-		f1.setSaleId(getId() + "_" + (forSales.size()+1));
+		f1.setSaleId(getId() + "_S" + (forSales.size()+1));
 		forSales.add(f1);
 	}
 	

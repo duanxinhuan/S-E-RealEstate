@@ -4,20 +4,27 @@ import customer.Landlord;
 
 public class Rental {
 
-
-
 	private String RentalId;
 	private String Status = "W";
 	// "W" is waiting for assign; "A" means assigned, and wait for rent; "R" means rental finished;
 	private double weeklyRent;
     private double contractLength;
     private double managementFee;
+    private String assignedEmployee;
 
 
     public Rental( double weeklyRent, double contractLength) {
     	this.weeklyRent = weeklyRent;
     	this.contractLength = contractLength;
     }
+
+	public String getAssignedEmployee() {
+		return assignedEmployee;
+	}
+
+	public void setAssignedEmployee(String assignedEmployee) {
+		this.assignedEmployee = assignedEmployee;
+	}
 
 	public Rental(String rentalId, String status, double weeklyRent, double contractLength, double managementFee) {
 		RentalId = rentalId;
