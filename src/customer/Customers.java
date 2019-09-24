@@ -7,13 +7,13 @@ import realEstateException.WrongEmailFormatException;
 public abstract class Customers {
     private final String customerId;
     private final String passWord;
-    private  final String custName;
+    private  final String customerName;
     private final String emailAddress;
 
-    public Customers(String customerId, String passWord, String custName, String emailAddress) {
+    public Customers(String customerId, String passWord, String customerName, String emailAddress) {
         this.customerId = customerId;
         this.passWord = passWord;
-        this.custName = custName;
+        this.customerName = customerName;
         this.emailAddress = emailAddress;
     }
 
@@ -21,8 +21,8 @@ public abstract class Customers {
         return customerId;
     }
 
-    public String getCustName() {
-        return custName;
+    public String getCustomerName() {
+        return customerName;
     }
 
     public String getEmailAddress() {
