@@ -1,6 +1,7 @@
 package application;
 
 import customer.Customers;
+import property.ForSale;
 import property.Property;
 import property.Rental;
 import java.sql.*;
@@ -15,8 +16,7 @@ public class LinkDatabase {
     ResultSet rs;
 
 
-    public LinkDatabase() throws SQLException {
-    }
+
 
     public static Connection getConnection() {
         return connection;
@@ -137,7 +137,17 @@ public class LinkDatabase {
                 preparedStmt.execute();
             }
 
-            for(int i = 0; i< p.getRentals().size(); i++){
+            for(int i = 0; i< p.getForSales().size(); i++){
+                ForSale f = p.getForSales().get(i);
+                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength)" +
+                        "values(?,?,?,?,?)";
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1,f.getSaleId());
+                preparedStmt.setString(2,p.getId());
+                preparedStmt.setString(3,f.getStatus());
+                preparedStmt.setDouble(4,f.getMinPrice());
+                preparedStmt.setDouble(5,f.getCommissionRate());
+                preparedStmt.execute();
 
             }
         } catch (Exception e) {
@@ -163,6 +173,15 @@ public class LinkDatabase {
             while(r1.next()){
                 Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
                 , r1.getDouble(5), r1.getDouble(6));
+                p.addRental(rental);
+            }
+            query = "select * from rental where Forsale = ?";
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, propertyId);
+            r1 = preparedStmt.executeQuery();
+            while(r1.next()){
+                Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
+                        , r1.getDouble(5), r1.getDouble(6));
                 p.addRental(rental);
             }
 

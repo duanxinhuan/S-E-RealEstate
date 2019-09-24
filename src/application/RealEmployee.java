@@ -1,5 +1,6 @@
 package application;
 
+import employees.Employee;
 import property.Property;
 
 import java.sql.SQLException;
@@ -11,16 +12,23 @@ public class RealEmployee {
 
     private ArrayList<Property> pr ;
     int option;
-    private ArrayList<String> assignedRentalList;
+    Employee current_employee;
     Scanner sc = new Scanner(System.in);
     // this is used to initialize property.
 
     public RealEmployee() {
     }
 
-    public ArrayList<Property> getPr() {
-        return pr;
+    public void startRealEmployee(){
+        System.out.println("what kind of employee is you:"
+        +"\n1.BranchAdmin" + "\n2.BranchManager" + "\n3.PropertyManager" + "\nSalesConsultant");
+        switch (option){
+            case 3:
+                propertyManager();
+        }
     }
+
+
 
     public void loadProperty(){
         try {
@@ -45,8 +53,11 @@ public class RealEmployee {
     }
 
     private void assignHouse() {
-
     }
 
+
+    public ArrayList<Property> getPr() {
+        return pr;
+    }
 
 }

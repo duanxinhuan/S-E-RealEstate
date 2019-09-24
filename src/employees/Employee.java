@@ -6,7 +6,6 @@ public class Employee {
 	private final String employeeStatus;
 	private final Double hourlyRate;
 	private  Double hours;
-	HashMap<Integer,String>assignedProperty_List= new HashMap<Integer,String>();
 
 	public String getEmployeeId() {
         return employeeId;
@@ -31,5 +30,7 @@ public class Employee {
 		return hours;
 	}
 
+    public void addRental() {
+    }
 }
 
