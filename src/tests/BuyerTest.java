@@ -23,17 +23,17 @@ class BuyerTest {
     }
 
     @Test
-    void positiveAddSuburb() throws DuplicateSuburbException {
-
+    void positiveAddSuburb()  {
+        try{
         b1.addSuburb(("3053"));
         b1.addSuburb("3054");
         for(int i =0; i<10; i++){
             b1.addSuburb(String.valueOf(3000+i));
+        }}catch (DuplicateSuburbException e){
+            fail("this should not throw exception!");
         }
         assertEquals(13, b1.getNumOfSuburb());
         assertEquals("3009", b1.getSuburbCodeList()[12]);
-
-
     }
 
 }

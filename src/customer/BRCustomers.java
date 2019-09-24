@@ -1,6 +1,9 @@
 package customer;
 
 import realEstateException.DuplicateSuburbException;
+import realEstateException.InvalidIdException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //this is customers tho wants to buy or rent a property
 public abstract class BRCustomers extends Customers {
@@ -37,5 +40,15 @@ public abstract class BRCustomers extends Customers {
 
     public String[] getSuburbCodeList(){
         return suburbCodeList;
+    }
+
+    public static void checkID(String id) throws InvalidIdException {
+        String pattern = "[P][0-9]+";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(id);
+        boolean b = m.matches();
+        if(!b)
+           throw new InvalidIdException();
+
     }
 }

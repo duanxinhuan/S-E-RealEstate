@@ -2,6 +2,7 @@ package customer;
 
 import property.Property;
 import realEstateException.DuplicateSuburbException;
+import realEstateException.PasswordMissMatchException;
 import realEstateException.WrongEmailFormatException;
 
 public abstract class Customers {
@@ -57,5 +58,14 @@ public abstract class Customers {
         throw new WrongEmailFormatException();
     }
 
-    public void addProperty(Property p){};
+    public static void confirmPassword(String passWord1, String passWord2) throws PasswordMissMatchException {
+        if(passWord1.equals(passWord2)){
+            return;
+        }
+        else throw new PasswordMissMatchException();
+    }
+
+    public String[] getSuburbCodeList(){
+        return null;
+    }
 }

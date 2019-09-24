@@ -1,11 +1,14 @@
 package realestate_system;
 
+import employees.Employee;
 import property.ForSale;
 import property.Property;
 import property.Rental;
+import realEstateException.EmailDoesNotExistException;
+import realEstateException.WrongPassWordException;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LinkDatabase {
 
@@ -78,27 +81,18 @@ public class LinkDatabase {
 
     }
 
-    public static String logIn(String emailAddress, String passWord  ) throws SQLException {
+    public static String logIn(String emailAddress, String passWord  ) throws SQLException, WrongPassWordException, EmailDoesNotExistException {
         String customer_details = null;
-        boolean isEmailExist = true;
-        query = "select emailAddress from customer";
-        preparedStmt = connection.prepareStatement(query);
-        ResultSet rs=preparedStmt.executeQuery();
-        while(rs.next()){
-            if(emailAddress.equals(rs.getString(1))){
-                isEmailExist = false;
-                break;
-            }
-        }
-        if(isEmailExist) {
-            System.out.println("email doesn't exists");
-        }
+        ResultSet rs;
 
         // login from database
 
         preparedStmt = connection.prepareStatement("select * from customer where emailAddress = ?");
         preparedStmt.setString(1,emailAddress);
         rs = preparedStmt.executeQuery();
+//        if(rs.getString(2) == null)
+//            throw new EmailDoesNotExistException();
+
         while(rs.next()){
             if(passWord.equals(rs.getString(2))){
                 System.out.println("success！");
@@ -106,7 +100,7 @@ public class LinkDatabase {
                         +rs.getString(3) +"_" + rs.getString(4);
                 break;
             }
-         System.out.println("Wrong pass world");
+            throw new WrongPassWordException();
         }
 
         return customer_details;
@@ -126,8 +120,8 @@ public class LinkDatabase {
             preparedStmt.setInt(7, p.getNumOfCarSpace());
             preparedStmt.setInt(8, p.getOwnerID());
             preparedStmt.execute();
-            for(int i = 0; i< p.getRentals().size(); i++){
-                Rental r = p.getRentals().get(i);
+            for(int i = 0; i< p.getRental().size(); i++){
+                Rental r = p.getRental().get(i);
                 query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength,employeeId)" +
                         "values(?,?,?,?,?,?)";
                 preparedStmt = connection.prepareStatement(query);
@@ -176,16 +170,17 @@ public class LinkDatabase {
             ResultSet r1 = preparedStmt.executeQuery();
             while(r1.next()){
                 Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
-                , r1.getDouble(5), r1.getDouble(6),r1.getString(7));
+                , r1.getDouble(5), r1.getDouble(6),r1.getString(7),r1.getBoolean(8));
                 p.addRental(rental);
             }
-            query = "select * from rental where propertyId = ?";
+            query = "select * from forSale where propertyId = ?";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, propertyId);
             r1 = preparedStmt.executeQuery();
             while(r1.next()){
-                ForSale forsale = new ForSale(r1.getString(1),r1.getString(2),r1.getDouble(3)
-                        , r1.getDouble(4),r1.getString(5));
+                ForSale forsale = new ForSale(r1.getString(1),r1.getString(3),r1.getDouble(4)
+                        , r1.getDouble(5),r1.getString(6),r1.getBoolean(7));
+                p.addForSale(forsale);
             }
 
             pr.add(p);
@@ -195,9 +190,10 @@ public class LinkDatabase {
     }
 
     public static void showUnassigned(String s) throws SQLException {
+        System.out.println("------------ Here is your recommendations :) ----------------");
         String details =null;
         if(s.equals("rental")){
-            query = "select RentalId, propertyId, weeklyRent,contractLength, from rental";
+            query = "select RentalId, propertyId, weeklyRent,contractLength from rental where propertyStatus = 'W'";
             preparedStmt=connection.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             System.out.println("--------unassigned rentals--------");
@@ -210,5 +206,21 @@ public class LinkDatabase {
                 i++;
             }
         }
+    }
+
+
+
+    public static void assignRental(Rental r1, Employee e1) throws SQLException {
+        query = "update rental" +
+                "\nset" +
+                "\npropertyStatus= ?, managementFee = ?, employeeId = ?,negotiate = ? " +
+                "\nwhere RentalId = ?";
+        preparedStmt = connection.prepareStatement(query);
+        preparedStmt.setString(1,r1.getStatus());
+        preparedStmt.setDouble(2,r1.getManagementFee());
+        preparedStmt.setString(3,r1.getAssignedEmployee());
+        preparedStmt.setBoolean(4,r1.getNegotiate());
+        preparedStmt.setString(5,r1.getRentalId());
+        preparedStmt.execute();
     }
 }
