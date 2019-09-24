@@ -114,6 +114,7 @@ public class RealEstate {
             }
         }
         while (!valid);
+
         System.out.println("create your password");
         passWord = sc.next();
         System.out.println("confirm your password");
@@ -141,7 +142,8 @@ public class RealEstate {
                 case 1:addSuburb();
                     break;
                 case 2:System.exit(0);
-            }}while(true);
+            }
+        }while(true);
     }
 
     public void vendorLogin() {
@@ -167,7 +169,8 @@ public class RealEstate {
                 case 2:
                     System.exit(0);
                     break;
-            }}while(true);
+            }
+        }while(true);
     }
 
     public void renterLogin() {
@@ -259,6 +262,7 @@ public class RealEstate {
                 arr[0] = Id;
             }
         }while(!valid);
+
         try{
             Property p = new Property(arr[0], arr[1], arr[2], arr[3],
                 Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
@@ -280,7 +284,6 @@ public class RealEstate {
     //this function is used by landlord and vendor to upload property to the realEstate.
 
     public boolean propertyAlreadyExist(String arr[]) {
-        PreExistException ex = new PreExistException();
 
         for (int i = 0; i < pr.size(); i++) {
             if (pr.get(i).getId().equals(arr[0]))

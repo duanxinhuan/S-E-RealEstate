@@ -1,8 +1,6 @@
 package customer;
 
 import property.Property;
-import realEstateException.DuplicateSuburbException;
-import realEstateException.WrongEmailFormatException;
 
 public abstract class Customers {
     private final String customerId;
@@ -39,23 +37,7 @@ public abstract class Customers {
         return  listDetails;
     }
 
-    public void addSuburb(String suburbCode) throws DuplicateSuburbException {};
-
-    public static  void checkEmailFormat(String emailAddress) throws WrongEmailFormatException {
-        String[] domainName  = {".org",".edu", ".au", ".eu",".na",".cn",".com",".net",".gov"};
-
-        if(!emailAddress.contains("@")){
-            throw new WrongEmailFormatException();
-        }
-
-        for(int i = 0;i<domainName.length;i++){
-            if(emailAddress.contains(domainName[i])){
-                System.out.println("your email Address is valid!");
-                return;
-            }
-        }
-        throw new WrongEmailFormatException();
-    }
+    public void addSuburb(String suburbCode){};
 
     public void addProperty(Property p){};
 }
