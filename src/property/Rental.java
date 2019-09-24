@@ -1,6 +1,8 @@
 package property;
 
 import customer.Landlord;
+import employees.Employee;
+import employees.PropertyManager;
 
 public class Rental {
 
@@ -22,16 +24,18 @@ public class Rental {
 		return assignedEmployee;
 	}
 
-	public void setAssignedEmployee(String assignedEmployee) {
-		this.assignedEmployee = assignedEmployee;
+	public void assign(Employee emp){
+		this.Status = "A";
+		this.assignedEmployee = emp.getEmployeeId();
 	}
 
-	public Rental(String rentalId, String status, double weeklyRent, double contractLength, double managementFee) {
+	public Rental(String rentalId, String status, double weeklyRent, double contractLength, double managementFee,String assignedEmployee) {
 		RentalId = rentalId;
 		Status = status;
 		this.weeklyRent = weeklyRent;
 		this.contractLength = contractLength;
 		this.managementFee = managementFee;
+		this.assignedEmployee = assignedEmployee;
 	}
 
 	public void setRentalId(String rentalId) {

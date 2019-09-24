@@ -20,6 +20,14 @@ public class RealEmployee {
     }
 
     public void startRealEmployee(){
+        LinkDatabase.connectJDBCToAWSEC2();
+        System.out.println("Loading properties");
+        try {
+            pr = LinkDatabase.loadProperty();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("what kind of employee is you:"
         +"\n1.BranchAdmin" + "\n2.BranchManager" + "\n3.PropertyManager" + "\nSalesConsultant");
         switch (option){

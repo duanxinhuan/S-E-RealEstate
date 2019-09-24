@@ -1,5 +1,7 @@
 package property;
 
+import employees.Employee;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -137,6 +139,21 @@ public class Property {
 		}
 		System.out.println("Invalid Type!!!");
 		return false;
+	}
+
+	public void assign(Employee emp, String ID){
+    	if(emp.getClass().getName().equals("employee.PropertyManager")){
+			for(int i =0; i< rentals.size(); i++){
+				if (rentals.get(i).getRentalId().equals(ID))
+					rentals.get(i).assign(emp);
+			}
+		}
+    	else {
+			for (int i = 0; i < forSales.size(); i++) {
+				if (forSales.get(i).getSaleId().equals(ID))
+					rentals.get(i).assign(emp);
+			}
+		}
 	}
 
     public int getOwnerID() {

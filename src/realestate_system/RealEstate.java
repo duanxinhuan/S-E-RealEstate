@@ -12,7 +12,7 @@ import java.util.regex.*;
 
 public class RealEstate {
     private HashMap<String, String> suburb_list = new HashMap<String, String>();
-    private ArrayList<Property> pr = new ArrayList<Property>();
+    private ArrayList<Property> pr;
     private Scanner sc = new Scanner(System.in);
     Customers current_customer;
     int choice;
@@ -24,7 +24,13 @@ public class RealEstate {
     public void startRealEstate(){
         LinkDatabase.connectJDBCToAWSEC2();
         loadSuburb();
-       do{
+        System.out.println("Loading properties");
+        try {
+            pr = LinkDatabase.loadProperty();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        do{
         System.out.println("1.register\n" +"2.login");
         choice = sc.nextInt();
 

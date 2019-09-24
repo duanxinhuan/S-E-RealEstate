@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import property.Property;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class LinkDatabaseTest {
@@ -37,6 +39,10 @@ class LinkDatabaseTest {
     @Test
     void uploadProperty() {
         LinkDatabase.uploadProperty(p);
+    }
 
+    @Test
+    void showUnassigned() throws SQLException {
+        LinkDatabase.showUnassigned("rental");
     }
 }
