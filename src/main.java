@@ -10,14 +10,19 @@ public class main {
         RealEmployee realEmployee = new RealEmployee();
         System.out.println("Are u a employee or customer?" +"\n input  customer  or employee!");
         do{
-            option = sc.next();
-            if(option.equals("customer"))
-                realEstate.startRealEstate();
-            else if(option.equals("employee"))
-                realEmployee.startRealEmployee();
-            else
-                System.out.println("wrong input, please input again");
+            try {
+                option = sc.next();
+                if(option.equals("customer"))
+                    realEstate.startRealEstate();
+                else if(option.equals("employee"))
+                    realEmployee.startRealEmployee();
+                else
+                    System.out.println("wrong input, please input again");
+            } catch (NullPointerException e) {
+                System.out.println(e);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }while(true);
-
     }
 }

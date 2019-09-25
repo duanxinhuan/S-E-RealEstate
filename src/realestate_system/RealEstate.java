@@ -48,52 +48,59 @@ public class RealEstate {
     }
 
     public void login() {
-        String emailAddress;
-        String password;
-        String customer_details = null;
-        System.out.println("***login in***");
-        String cust_array [];
-        System.out.println("Enter your email");
-        emailAddress = sc.next();
-        System.out.println("Enter your password");
-        password = sc.next();
         try {
+            String emailAddress;
+            String password;
+            String customer_details = null;
+            System.out.println("***login in***");
+            String cust_array [];
+            System.out.println("Enter your email");
+            emailAddress = sc.next();
+            System.out.println("Enter your password");
+            password = sc.next();
+
             customer_details = LinkDatabase.logIn(emailAddress, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        cust_array = customer_details.split("_");
+            cust_array = customer_details.split("_");
 
-        //choose which customer
-        System.out.println("choose if you are 1:buyer,2:renter,3:vendor,4:landlord");
-         int num = sc.nextInt();
-             switch (num) {
-                 case 1:
-                     System.out.println("you chose buyer!");
-                     current_customer = new Buyer(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     buyerLogin();
-                     break;
+            //choose which customer
+            System.out.println("choose if you are 1:buyer,2:renter,3:vendor,4:landlord");
+             int num = sc.nextInt();
+                 switch (num) {
+                     case 1:
+                         System.out.println("you chose buyer!");
+                         current_customer = new Buyer(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                         buyerLogin();
+                         break;
 
-                 case 2:
-                     System.out.println("you chose renter!");
-                     current_customer = new Renter(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     renterLogin();
-                     break;
-                 case 3:
-                     System.out.println("you chose vendor!");
-                     current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     vendorLogin();
+                     case 2:
+                         System.out.println("you chose renter!");
+                         current_customer = new Renter(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                         renterLogin();
+                         break;
+                     case 3:
+                         System.out.println("you chose vendor!");
+                         current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                         vendorLogin();
 
-                     break;
-                 case 4:
-                     System.out.println("you chose landlord!");
-                     current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                     landlordLogin();
-                     break;
+                         break;
+                     case 4:
+                         System.out.println("you chose landlord!");
+                         current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                         landlordLogin();
+                         break;
 
              }
-        
+        } catch (SQLException e) { }
+        catch (NullPointerException e){
+
+        }
+        catch (EmailDoesNotExistException e) {
+            System.out.println("email doesn't exist!");
+        } catch (WrongPassWordException e) {
+            System.out.println("wrong password!");
+        }
+
     }
 
     public void register() {

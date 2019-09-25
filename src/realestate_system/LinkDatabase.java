@@ -3,6 +3,9 @@ package realestate_system;
 import property.ForSale;
 import property.Property;
 import property.Rental;
+import realEstateException.WrongPassWordException;
+import realEstateException.EmailDoesNotExistException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -78,35 +81,27 @@ public class LinkDatabase {
 
     }
 
-    public static String logIn(String emailAddress, String passWord  ) throws SQLException {
+    public static String logIn(String emailAddress, String passWord  ) throws SQLException, WrongPassWordException, EmailDoesNotExistException {
         String customer_details = null;
-        boolean isEmailExist = true;
-        query = "select emailAddress from customer";
-        preparedStmt = connection.prepareStatement(query);
-        ResultSet rs=preparedStmt.executeQuery();
-        while(rs.next()){
-            if(emailAddress.equals(rs.getString(1))){
-                isEmailExist = false;
-                break;
-            }
-        }
-        if(isEmailExist) {
-            System.out.println("email doesn't exists");
-        }
+        ResultSet rs;
 
         // login from database
 
         preparedStmt = connection.prepareStatement("select * from customer where emailAddress = ?");
         preparedStmt.setString(1,emailAddress);
         rs = preparedStmt.executeQuery();
+
+
         while(rs.next()){
+            if(rs.getString(2).equals(null) )
+                throw new EmailDoesNotExistException();
             if(passWord.equals(rs.getString(2))){
                 System.out.println("success！");
                 customer_details = rs.getInt(1) + "_" + rs.getString(2) + "_"
                         +rs.getString(3) +"_" + rs.getString(4);
                 break;
             }
-         System.out.println("Wrong pass world");
+            throw new WrongPassWordException();
         }
 
         return customer_details;
