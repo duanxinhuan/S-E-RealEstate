@@ -189,7 +189,6 @@ public class Property {
 			try {
 				s+=rentals.get(i).generateRecommendation(getId());
 			} catch (CanNotRecommendException e) {
-				e.printStackTrace();
 			}
 			s+="\naddress: " +getAddress()
 				+ "\nproperty type: " +getPropertyType()

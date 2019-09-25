@@ -16,7 +16,7 @@ public class LinkDatabase {
     private static Connection connection = null;
     private static PreparedStatement preparedStmt;
     private static String query;
-    ResultSet rs;
+    private ResultSet rs;
 
 
 
@@ -82,7 +82,7 @@ public class LinkDatabase {
     }
 
     public static String logIn(String emailAddress, String passWord  ) throws SQLException, WrongPassWordException, EmailDoesNotExistException {
-        String customer_details = null;
+        String customer_details = "";
         ResultSet rs;
 
         // login from database
@@ -90,8 +90,9 @@ public class LinkDatabase {
         preparedStmt = connection.prepareStatement("select * from customer where emailAddress = ?");
         preparedStmt.setString(1,emailAddress);
         rs = preparedStmt.executeQuery();
-//        if(rs.getString(2) == null)
-//            throw new EmailDoesNotExistException();
+        System.out.println(rs);
+        if(rs.getString(2).equals(""))
+            throw new EmailDoesNotExistException();
 
         while(rs.next()){
             if(passWord.equals(rs.getString(2))){

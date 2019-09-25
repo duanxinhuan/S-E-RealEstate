@@ -12,14 +12,12 @@ import java.util.regex.*;
 
 public class RealEstate {
     private HashMap<String, String> suburb_list = new HashMap<String, String>();
-    private ArrayList<Property> pr;
+    private ArrayList<Property> pr = new ArrayList<Property>();
     private Scanner sc = new Scanner(System.in);
+    private ArrayList<Application> applicationList;
     Customers current_customer;
     int choice;
 
-    public RealEstate() {
-
-    }
 
     public void startRealEstate(){
         LinkDatabase.connectJDBCToAWSEC2();
@@ -91,16 +89,11 @@ public class RealEstate {
                     break;
 
             }
-        } catch (SQLException e) { }
-        catch (NullPointerException e){
-
         }
-        catch (EmailDoesNotExistException e) {
-            System.out.println("email doesn't exist!");
-        } catch (WrongPassWordException e) {
-            System.out.println("wrong password!");
-        }
-
+        catch (SQLException ex0) { }
+        catch (NullPointerException ex1){ System.out.println(); }
+        catch (EmailDoesNotExistException ex2) { ex2.printStackTrace(); }
+        catch (WrongPassWordException ex3) { System.out.println("wrong password!"); }
     }
 
     public void register() {
@@ -111,9 +104,16 @@ public class RealEstate {
         boolean valid;
         System.out.println("enter your information to register");
 
-        System.out.println("enter your customer name");
-        custName = sc.next();
 
+//        do {
+//            valid = false;
+            System.out.println("enter your customer name");
+            custName = sc.next();
+//            try{
+//                Customers.checkCustName(custName);
+//            }
+//        }
+//        while (!valid)
 
         do {
             valid = false;
@@ -139,7 +139,8 @@ public class RealEstate {
                 valid = true;
             } catch (PasswordMissMatchException e) {
                 System.out.println(e.toString());
-            }}while(!valid);
+            }
+        }while(!valid);
 
 
         System.out.println("register successfully");
@@ -192,7 +193,7 @@ public class RealEstate {
     public void renterLogin() {
         int num;
         do{
-            System.out.println("enter 1 for add suburb, 2 for get recommendations,3 for exit the program");
+            System.out.println("enter 1 add suburb, 2 get recommendations, 3 make rental application, 4 exit the program");
             num=sc.nextInt();
         switch(num) {
             case 1:
@@ -202,10 +203,68 @@ public class RealEstate {
                 getRecommendations(current_customer);
                 break;
             case 3:
+                makeRentalApplication(current_customer);
+            case 4:
                 System.exit(0);
         }
         }while(true);
     }
+
+    public boolean checkPropertyID(String propertyID) {
+
+        for(int i=0; i<pr.size(); i++ ) {
+            if(propertyID.equals(pr.get(i).getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void makeRentalApplication(Customers c) {
+        System.out.println("Please enter renter name:");
+        String renterName = sc.next();
+
+        System.out.println("Please enter your rental ID:");
+        String rentalID = sc.next();
+
+        String[] arr = rentalID.split("_");
+        String propertyID = arr[0];
+
+        checkPropertyID(propertyID);
+
+        System.out.println("Please enter your occupation:");
+        String occupation = sc.next();
+
+        System.out.println("Please enter your income:");
+        double income = sc.nextDouble();
+
+        System.out.println("Please enter your contract length and contract price:" );
+        double contractLength = sc.nextDouble();
+        double contractPrice = sc.nextDouble();
+        try {
+            getPropertyID(propertyID).getRental(rentalID).checkApplication(contractPrice,contractLength);
+        } catch (UnableToApplyException e) {
+            System.out.println("unable to apply: your contract length and price should be greater than the min price and length!");
+            System.out.println("unable to apply: the status of property should be assigned!");
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+        }
+
+        Application ap = new Application(renterName,rentalID,occupation,income,contractLength,contractPrice);
+        applicationList.add(ap);
+    }
+
+    public Property getPropertyID(String propertyID) {
+        Property property = null;
+
+        for(int i=0; i<pr.size(); i++) {
+            if(pr.get(i).getId().equals(propertyID))
+                property = pr.get(i);
+        }
+            return property;
+    }
+
+
 
     private void getRecommendations (Customers c) {
         System.out.println("--------- Here is your recommendations :)----------");
@@ -291,8 +350,8 @@ public class RealEstate {
         // check if this property already exists in the system
         do{
             valid = propertyAlreadyExist(arr);
-            if(valid)
-                System.out.println("Property added! ");
+            if(valid) {}
+
             else{
                 System.out.println("property Id already exists!");
                 System.out.printf("please enter a new Id:");
@@ -314,9 +373,13 @@ public class RealEstate {
             }
            pr.add(p);
            LinkDatabase.uploadProperty(p);
+           System.out.println("Property added! ");
 
            System.out.println("you have successful uploaded a house and started a rental");
-        }catch (Exception e) {
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format! Please type without whitespace.");
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -18,6 +18,10 @@ public abstract class Customers {
         this.emailAddress = emailAddress;
     }
 
+//    public static boolean checkCustName(String custName) {
+//        if(custName.contains())
+//    }
+
     public String getCustomerId() {
         return customerId;
     }

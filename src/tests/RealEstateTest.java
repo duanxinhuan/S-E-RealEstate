@@ -12,7 +12,8 @@ class RealEstateTest {
     RealEstate r1 = new RealEstate();
     String[] str1 = {"P123", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
     String[] str2 = {"P223", "u601 77 Cardigan Street Melbourne", "3052", "unit","3", "4","2"};
-    Property pr = new Property("P123", "u601 77 Cardigan Street Melbourne", "3052", "unit", 3, 4,2);
+    Property pr = new Property("P123", "u601 77 Cardigan Street Melbourne", "3052",
+            "unit", 3, 4,2);
     boolean output;
 
     @BeforeEach
@@ -33,4 +34,15 @@ class RealEstateTest {
         assertTrue(output);
     }
 
+    @Test
+    void positiveCheckPropertyID() {
+        output = r1.checkPropertyID("P123");
+        assertTrue(output);
+    }
+
+    @Test
+    void negativeCheckPropertyID() {
+        output = r1.checkPropertyID("123");
+        assertFalse(output);
+    }
 }

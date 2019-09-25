@@ -20,8 +20,6 @@ public class RealEmployee {
     Scanner sc = new Scanner(System.in);
     // this is used to initialize property.
 
-    public RealEmployee() {
-    }
 
     public void startRealEmployee(){
         LinkDatabase.connectJDBCToAWSEC2();
@@ -33,8 +31,8 @@ public class RealEmployee {
             e.printStackTrace();
         }
 
-        System.out.println("what kind of employee is you:"
-        +"\n1.BranchAdmin" + "\n2.BranchManager" + "\n3.PropertyManager" + "\n4.SalesConsultant");
+        System.out.println("what kind of employee are you:"
+        +"\n1.BranchAdmin\n" + "\n2.BranchManager\n" + "\n3.PropertyManager\n" + "\n4.SalesConsultant\n");
         option = sc.nextInt();
         switch (option){
             case 3:
@@ -42,7 +40,6 @@ public class RealEmployee {
                 break;
         }
     }
-
 
 
     public void loadProperty(){

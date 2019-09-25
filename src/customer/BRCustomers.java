@@ -49,6 +49,5 @@ public abstract class BRCustomers extends Customers {
         boolean b = m.matches();
         if(!b)
            throw new InvalidIdException();
-
     }
 }

@@ -4,6 +4,7 @@ import customer.Landlord;
 import employees.Employee;
 import realEstateException.CanNotRecommendException;
 import realEstateException.HouseAlreadyAssignedException;
+import realEstateException.UnableToApplyException;
 
 public class Rental {
 
@@ -112,5 +113,11 @@ public class Rental {
 			throw new CanNotRecommendException();
 		return getDetails(s1);
 	}
+
+	public void checkApplication(double weeklyRent, double contractLength) throws UnableToApplyException {
+    	if(weeklyRent<this.weeklyRent && contractLength<this.contractLength && !Status.equals("A")){
+    		throw new UnableToApplyException();
+	}
+    }
 	// change the status when the house is assigned and rented
 }
