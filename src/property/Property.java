@@ -1,6 +1,10 @@
 package property;
 
+import customer.Customers;
 import employees.Employee;
+import realEstateException.CanNotRecommendException;
+import realEstateException.HouseAlreadyAssignedException;
+import realEstateException.WrongIdException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,7 +48,7 @@ public class Property {
         this.setNumOfCarSpace(numOfCarSpace);
     }
 
-	public ArrayList<Rental> getRentals() {
+	public ArrayList<Rental> getRental() {
 		return rentals;
 	}
 
@@ -141,8 +145,8 @@ public class Property {
 		return false;
 	}
 
-	public void assign(Employee emp, String ID){
-    	if(emp.getClass().getName().equals("employee.PropertyManager")){
+	public void assign(Employee emp, String ID) throws HouseAlreadyAssignedException {
+    	if(emp.getClass().getName().equals("employees.PropertyManager")){
 			for(int i =0; i< rentals.size(); i++){
 				if (rentals.get(i).getRentalId().equals(ID))
 					rentals.get(i).assign(emp);
@@ -159,4 +163,42 @@ public class Property {
     public int getOwnerID() {
         return ownerID;
     }
+
+    public void negotiate(String rentalId, boolean b) {
+        for(int i =0; i<rentals.size(); i++){
+            if(rentals.get(i).getRentalId().equals(rentalId))
+                rentals.get(i).negotiate(b);
+        }
+    }
+
+    public Rental getRental(String rentalId) throws WrongIdException {
+        for(int i = 0; i<rentals.size();i++){
+            if(rentals.get(i).getRentalId().equals(rentalId)){
+                return rentals.get(i);
+            }
+        else
+            throw new WrongIdException();
+        }
+        return null;
+    }
+
+	public String generateRecommendation  () {
+    	String s = "";
+    	for(int i =0; i<rentals.size();i++){
+
+			try {
+				s+=rentals.get(i).generateRecommendation(getId());
+			} catch (CanNotRecommendException e) {
+				e.printStackTrace();
+			}
+			s+="\naddress: " +getAddress()
+				+ "\nproperty type: " +getPropertyType()
+				+ "\nnumber of bed: " +getNumOfBedroom()
+				+"\nnumber of bath: " +getNumOfBath()
+				+"\ncar space: " + getNumOfCarSpace()
+				+"\n-------------------------------------------------------";
+		}
+
+		return s;
+	}
 }

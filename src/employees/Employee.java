@@ -28,7 +28,5 @@ public class Employee {
 		return hours;
 	}
 
-    public void addRental() {
-    }
 }
 

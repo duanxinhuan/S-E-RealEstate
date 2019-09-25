@@ -65,32 +65,32 @@ public class RealEstate {
 
             //choose which customer
             System.out.println("choose if you are 1:buyer,2:renter,3:vendor,4:landlord");
-             int num = sc.nextInt();
-                 switch (num) {
-                     case 1:
-                         System.out.println("you chose buyer!");
-                         current_customer = new Buyer(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                         buyerLogin();
-                         break;
+            int num = sc.nextInt();
+            switch (num) {
+                case 1:
+                    System.out.println("you chose buyer!");
+                    current_customer = new Buyer(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                    buyerLogin();
+                    break;
 
-                     case 2:
-                         System.out.println("you chose renter!");
-                         current_customer = new Renter(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                         renterLogin();
-                         break;
-                     case 3:
-                         System.out.println("you chose vendor!");
-                         current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                         vendorLogin();
+                case 2:
+                    System.out.println("you chose renter!");
+                    current_customer = new Renter(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                    renterLogin();
+                    break;
+                case 3:
+                    System.out.println("you chose vendor!");
+                    current_customer = new Vendor(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                    vendorLogin();
 
-                         break;
-                     case 4:
-                         System.out.println("you chose landlord!");
-                         current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
-                         landlordLogin();
-                         break;
+                    break;
+                case 4:
+                    System.out.println("you chose landlord!");
+                    current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
+                    landlordLogin();
+                    break;
 
-             }
+            }
         } catch (SQLException e) { }
         catch (NullPointerException e){
 
@@ -117,7 +117,7 @@ public class RealEstate {
 
         do {
             valid = false;
-            System.out.println("enter your email address,email address must contain @ and.com");
+            System.out.println("enter your email address");
             emailAddress = sc.next();
             try {
                 Customers.checkEmailFormat(emailAddress);
@@ -128,17 +128,20 @@ public class RealEstate {
         }
         while (!valid);
 
-        System.out.println("create your password");
-        passWord = sc.next();
-        System.out.println("confirm your password");
-        passWord2 = sc.next();
-        while (!passWord.equals(passWord2)) {
-            System.out.println("password mismatch ");
-            System.out.println("enter your password again");
+        do{
+            valid = false;
+            System.out.println("create your password");
             passWord = sc.next();
             System.out.println("confirm your password");
             passWord2 = sc.next();
-        }
+            try {
+                Customers.confirmPassword(passWord,passWord2);
+                valid = true;
+            } catch (PasswordMissMatchException e) {
+                System.out.println(e.toString());
+            }}while(!valid);
+
+
         System.out.println("register successfully");
         System.out.println("here is your account details: ");
         System.out.println("password length: " + (passWord.length()));
@@ -187,16 +190,38 @@ public class RealEstate {
     }
 
     public void renterLogin() {
-        System.out.println("enter 1 for add suburb, 2 for exit the program");
-        int num=sc.nextInt();
+        int num;
+        do{
+            System.out.println("enter 1 for add suburb, 2 for get recommendations,3 for exit the program");
+            num=sc.nextInt();
         switch(num) {
             case 1:
                 addSuburb();
+                break;
             case 2:
+                getRecommendations(current_customer);
+                break;
+            case 3:
                 System.exit(0);
         }
+        }while(true);
     }
 
+    private void getRecommendations (Customers c) {
+        System.out.println("--------- Here is your recommendations :)----------");
+        String s = "there is no recommendation for u, try to add more suburb.";
+        for(int i =0; i<pr.size();i++){
+            for(int j = 0; j<c.getSuburbCodeList().length; j++){
+                if (pr.get(i).getSuburbCode().equals(c.getSuburbCodeList()[j])){
+                        s = pr.get(i).generateRecommendation();
+                        System.out.println(s);
+                        s = "null";
+                    }
+                }
+            }
+        if(!s.equals("null"))
+            System.out.println(s);
+    }
     // login function
 
     //this is add suburb function for buyer and renter and load suburb function of the realEstate
@@ -209,6 +234,7 @@ public class RealEstate {
         	  System.out.println("suburb added");
               try {
                   current_customer.addSuburb( keyCheck);
+                  System.out.println(keyCheck +"has been successfully added!");
               } catch (DuplicateSuburbException e) {
                   e.printStackTrace();
               }
@@ -237,16 +263,7 @@ public class RealEstate {
     }
 
 
-    public boolean checkID(String id) {
-        String pattern = "[P][0-9]+";
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(id);
-        boolean b = m.matches();
 
-   	    if(!b)
-		   System.out.println("Invalid input!!!");
-	    return b;
-    }
     // check if Id starts with "P"
 
     public void uploadProperty() {
@@ -259,10 +276,18 @@ public class RealEstate {
         sc.useDelimiter("\n");
         String input = sc.next();
         arr = input.split(",", 7);
-
         // check ID
-        checkID(arr[0]);
-
+        do{
+            valid = false;
+        try {
+            BRCustomers.checkID(arr[0]);
+            valid=true;
+        } catch (InvalidIdException e) {
+           System.out.println(e.toString());
+           System.out.println("please re enter your propertyId, it should contain P and followed by digits");
+           sc.next();
+           arr[0]=input;
+        }}while(!valid);
         // check if this property already exists in the system
         do{
             valid = propertyAlreadyExist(arr);
@@ -289,6 +314,7 @@ public class RealEstate {
             }
            pr.add(p);
            LinkDatabase.uploadProperty(p);
+
            System.out.println("you have successful uploaded a house and started a rental");
         }catch (Exception e) {
             e.printStackTrace();
@@ -297,7 +323,6 @@ public class RealEstate {
     //this function is used by landlord and vendor to upload property to the realEstate.
 
     public boolean propertyAlreadyExist(String arr[]) {
-
         for (int i = 0; i < pr.size(); i++) {
             if (pr.get(i).getId().equals(arr[0]))
                 return false;

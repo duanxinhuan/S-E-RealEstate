@@ -23,18 +23,6 @@ class RealEstateTest {
 
 
     @Test
-    void negativeCheckID() {
-        output = r1.checkID("PP001");
-        assertFalse(output, "Invalid input!!!");
-    }
-
-    @Test
-    void positiveCheckID() {
-        output = r1.checkID("P001");
-        assertTrue(output);
-    }
-
-    @Test
     void negativePropertyAlreadyExist() {
         output = r1.propertyAlreadyExist(str1);
         assertFalse(output, "Property already exists!");
