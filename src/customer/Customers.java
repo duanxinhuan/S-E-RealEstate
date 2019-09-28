@@ -1,9 +1,10 @@
 package customer;
 
 import property.Property;
-import realEstateException.DuplicateSuburbException;
-import realEstateException.PasswordMissMatchException;
-import realEstateException.WrongEmailFormatException;
+import realEstateException.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Customers {
     private final String customerId;
@@ -18,9 +19,16 @@ public abstract class Customers {
         this.emailAddress = emailAddress;
     }
 
-//    public static boolean checkCustName(String custName) {
-//        if(custName.contains())
-//    }
+
+    public static void checkCustName(String custName) throws WrongCustomerNameFormatException {
+
+        String pattern = "[a-zA-Z ]+";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(custName);
+        boolean b = m.matches();
+        if(!b)
+            throw new WrongCustomerNameFormatException();
+    }
 
     public String getCustomerId() {
         return customerId;

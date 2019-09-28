@@ -1,4 +1,8 @@
 package realEstateException;
 
-public class WrongIdException extends Throwable {
+public class WrongIdException extends Exception {
+
+    public WrongIdException() {
+        super("Id entered is wrong!");
+    }
 }

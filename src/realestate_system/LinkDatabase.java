@@ -20,8 +20,6 @@ public class LinkDatabase {
 
 
 
-
-
     public static Connection getConnection() {
         return connection;
     }
@@ -55,7 +53,7 @@ public class LinkDatabase {
 
     }
 
-    public static void register(String passWord,String custName, String emailAddress ){
+    public static void register(String passWord,String custName, String emailAddress ) {
         try{
             query = " insert into customer (passWord, custName, emailAddress)"
                     + " values (?, ?, ?)";
@@ -85,32 +83,26 @@ public class LinkDatabase {
         String customer_details = "";
         ResultSet rs;
 
-        // login from database
-
         preparedStmt = connection.prepareStatement("select * from customer where emailAddress = ?");
         preparedStmt.setString(1,emailAddress);
         rs = preparedStmt.executeQuery();
-        System.out.println(rs);
-        if(rs.getString(2).equals(""))
+
+        if(rs.next() == false)
             throw new EmailDoesNotExistException();
 
-        while(rs.next()){
-            if(passWord.equals(rs.getString(2))){
-                System.out.println("success！");
-                customer_details = rs.getInt(1) + "_" + rs.getString(2) + "_"
-                        +rs.getString(3) +"_" + rs.getString(4);
-                break;
-            }
+        if(!passWord.equals(rs.getString(2)))
             throw new WrongPassWordException();
-        }
+        System.out.println("success！");
+        customer_details = rs.getInt(1) + "_" + rs.getString(2) + "_"
+                +rs.getString(3) +"_" + rs.getString(4);
 
         return customer_details;
     }
 
     public static void uploadProperty(Property p) {
         try {
-            query = "insert into property(propertyID, address, suburbCode,propertyType,bedrommNumber," +
-                    " bathroomNumber,carspaceNumber,CustomerId)" + "values(?, ?, ?, ?, ?, ?, ?,?)";
+            query = "insert into property(propertyID, address, suburbCode, propertyType, bedrommNumber, bathroomNumber, carspaceNumber, CustomerId)" +
+                     "values(?, ?, ?, ?, ?, ?, ?,?)";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, p.getId());
             preparedStmt.setString(2, p.getAddress());
@@ -121,9 +113,10 @@ public class LinkDatabase {
             preparedStmt.setInt(7, p.getNumOfCarSpace());
             preparedStmt.setInt(8, p.getOwnerID());
             preparedStmt.execute();
+
             for(int i = 0; i< p.getRental().size(); i++){
                 Rental r = p.getRental().get(i);
-                query = "insert into rental(RentalId, propertyId,propertyStatus,weeklyRent,contractLength,employeeId)" +
+                query = "insert into rental(RentalId, propertyId, propertyStatus, weeklyRent, contractLength, employeeId)" +
                         "values(?,?,?,?,?,?)";
                 preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1,r.getRentalId());
@@ -147,8 +140,9 @@ public class LinkDatabase {
                 preparedStmt.setDouble(5,f.getCommissionRate());
                 preparedStmt.setString(6,f.getAssignedEmployee());
                 preparedStmt.execute();
-
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println(e.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,25 +153,37 @@ public class LinkDatabase {
         Property p = null;
         query = "select * from property";
         preparedStmt = connection.prepareStatement(query);
-        ResultSet rs=preparedStmt.executeQuery();
+        ResultSet rs = preparedStmt.executeQuery();
+
         while(rs.next()){
             String propertyId = rs.getString(1);
             p = new Property(propertyId,rs.getString(2),rs.getString(3),rs.getString(4)
             , rs.getInt(5),rs.getInt(6),rs.getInt(7));
             p.setOwnerID(rs.getInt(8));
+
             query = "select * from rental where propertyId = ?";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, propertyId);
             ResultSet r1 = preparedStmt.executeQuery();
-            while(r1.next()){
-                Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
-                , r1.getDouble(5), r1.getDouble(6),r1.getString(7),r1.getBoolean(8));
-                p.addRental(rental);
+
+            // check the uniqueness of rental ID (one rental ID should only have one corresponding property ID)
+            if(propertyId.equals(r1.getString(2))) {
+                System.out.println("SQLIntegrityConstraintViolationException: Duplicate entry 'P101_R1' for key 'PRIMARY'");
             }
+            else {
+                while(r1.next()){
+                    Rental rental = new Rental(r1.getString(1),r1.getString(3),r1.getDouble(4)
+                            , r1.getDouble(5), r1.getDouble(6),r1.getString(7),r1.getBoolean(8));
+                    p.addRental(rental);
+                }
+            }
+
+
             query = "select * from forSale where propertyId = ?";
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, propertyId);
             r1 = preparedStmt.executeQuery();
+
             while(r1.next()){
                 ForSale forsale = new ForSale(r1.getString(1),r1.getString(3),r1.getDouble(4)
                         , r1.getDouble(5),r1.getString(6),r1.getBoolean(7));

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import realEstateException.InvalidIdException;
+import realEstateException.SuburbCodeDoesNotExistException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,14 +20,16 @@ class BRCustomersTest {
     }
 
     @Test
-    void negativeCheckID() {
-        Assertions.assertThrows(InvalidIdException.class,() ->{BRCustomers.checkID("PP001");});
+    void negativeCheckSuburbCode() {
+
+        Assertions.assertThrows(SuburbCodeDoesNotExistException.class,() ->{BRCustomers.checkSuburbCode("33045 ");});
     }
+
     @Test
     void positiveAddSuburb()  {
         try{
-            BRCustomers.checkID("P001");
-            }catch (InvalidIdException e){
+            BRCustomers.checkSuburbCode("3053");
+            }catch (SuburbCodeDoesNotExistException e){
             fail("this should not throw exception!");
         }
     }

@@ -1,7 +1,7 @@
 package realEstateException;
 
-public class PasswordMissMatchException extends Throwable {
+public class PasswordMissMatchException extends Exception {
     public PasswordMissMatchException(){
-        super("you password don't match to each other");
+        super("Your password doesn't match with each other!");
     }
 }
