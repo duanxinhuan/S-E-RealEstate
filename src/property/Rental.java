@@ -16,6 +16,9 @@ public class Rental {
     private double managementFee;
     private String assignedEmployee;
 	private boolean negotiate;
+	final private double STANDARD_RATE = (8.00/100.00);
+	final private double DISCOUNT_RATE = (7.00/100.00);
+	final private double NEGOTIATE_OFF = (1.00/100.00);
 
 
     public Rental( double weeklyRent, double contractLength) {
@@ -58,13 +61,13 @@ public class Rental {
 
     public void setManagementFee(Landlord landlord) {
     	if (landlord.getNumOfRent() >= 2) {
-    		this.managementFee = ((7.0/100.00) * weeklyRent);
+    		this.managementFee = (DISCOUNT_RATE * weeklyRent);
     	} else {
     		// the standard rental fee is 8%
-    		this.managementFee = ((8.0/100.00) * weeklyRent);
+    		this.managementFee = (STANDARD_RATE * weeklyRent);
     	}
     	if (isNegotiate()) {
-        	this.managementFee -= (1.0/100.0);
+        	this.managementFee -= NEGOTIATE_OFF;
     	}
     }
     // set management fee.
