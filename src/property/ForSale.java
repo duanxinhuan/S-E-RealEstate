@@ -5,34 +5,35 @@ import employees.SalesConsultant;
 
 import java.util.HashMap;
 public class ForSale {
-    private String SaleId;
+    private String forSaleId;
     private String Status = "W";
     private double minPrice;
-    private double CommissionRate;
+    private double commissionRate;
+//    private double finalPrice;  final price can be got from SalesConsultant class
     private String assignedEmployee;
-    //private double FinalPrice;
-    private boolean negotiate ;
-    //HashMap<Integer,String> offerList = new HashMap<>();
+    private String status;
+    private boolean negotiate = true;
+    private HashMap<Integer,Offer> offerList = new HashMap<>();
+    private SalesConsultant sc;
 
-    public ForSale(double minPrice, double commissionRate) {
+
+    private ForSale(double minPrice, double newCommissionRate) {
         this.minPrice = minPrice;
-        this.CommissionRate = commissionRate;
+        this.commissionRate = newCommissionRate;
     }
 
-    public ForSale(String saleId, String status, double minPrice, double commissionRate, String assignedEmployee,
+    public ForSale(String saleId, String status, double minPrice, double newCommissionRate, String assignedEmployee,
                    Boolean negotiate) {
-        SaleId = saleId;
+        forSaleId = saleId;
         Status = status;
         this.minPrice = minPrice;
-        CommissionRate = commissionRate;
+        commissionRate = newCommissionRate;
         this.assignedEmployee = assignedEmployee;
         this.negotiate = negotiate;
     }
 
-
-
     public void setSaleId(String saleId) {
-        this.SaleId = saleId;
+        this.forSaleId = saleId;
     }
 
     public String getAssignedEmployee() {
@@ -46,16 +47,15 @@ public class ForSale {
 
     public void setCommissionRate() {
        if (getNegotiate()){
-           CommissionRate = 0.02;
+           commissionRate = 0.02;
        }
        else{
-           CommissionRate =0.05;
+           commissionRate = 0.05;
        }
-
     }
 
     public String getSaleId() {
-        return this.SaleId;
+        return this.forSaleId;
     }
 
     public double getMinPrice() {
@@ -63,22 +63,30 @@ public class ForSale {
     }
 
     public double getCommissionRate() {
-        return this.CommissionRate;
+        return this.commissionRate;
     }
-
-
 
     public String getStatus() {
         return this.Status;
     }
 
-//    public HashMap<Integer, String> getOfferList() {
-//        return this.offerList;
-//    }
+    public HashMap<Integer, Offer> getOfferList() {
+        return this.offerList;
+    }
+
+    // add offer object into offer list
+    public void addOffer(Offer offer) {
+        for(int i=0; i<offerList.size(); i++) {
+            this.offerList.put(i,offer);
+        }
+    }
 
     public boolean getNegotiate() {
         return this.negotiate;
     }
+
+
+
 }
 
 

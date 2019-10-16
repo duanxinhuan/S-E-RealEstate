@@ -15,6 +15,11 @@ public class Vendor extends VLCustomers {
         numOfSell+=1;
     }
 
+    @Override
+    public void editDetails() {
+
+    }
+
 
 }
 

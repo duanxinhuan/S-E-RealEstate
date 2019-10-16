@@ -115,9 +115,9 @@ public class Rental {
 	}
 
 	public void checkApplication(double weeklyRent, double contractLength) throws UnableToApplyException {
-    	if(weeklyRent<this.weeklyRent && contractLength<this.contractLength && !Status.equals("A")){
-    		throw new UnableToApplyException();
+		if (weeklyRent < this.weeklyRent && contractLength < this.contractLength && !Status.equals("A")) {
+			throw new UnableToApplyException();
+		}
 	}
-    }
 	// change the status when the house is assigned and rented
 }

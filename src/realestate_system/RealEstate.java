@@ -1,13 +1,16 @@
 package realestate_system;
 
-import java.util.*;
 import customer.*;
-import property.*;
+import property.Application;
+import property.Property;
 import realEstateException.*;
-import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 
 
@@ -18,6 +21,7 @@ public class RealEstate {
     private ArrayList<Application> applicationList;
     Customers current_customer;
     private int choice;
+
 
 
     public void startRealEstate(){
@@ -183,9 +187,11 @@ public class RealEstate {
             System.out.println("enter 1 for add suburb, 2 for exit the program");
             int num=sc.nextInt();
             switch(num){
-                case 1:addSuburb();
+                case 1:
+                    addSuburb();
                     break;
-                case 2:System.exit(0);
+                case 2:
+                    RealEstateMain.runApp();
             }
         }while(true);
     }
@@ -197,7 +203,7 @@ public class RealEstate {
             case 1:
                 uploadProperty();
             case 2:
-                System.exit(0);
+                RealEstateMain.runApp();
         }
 
     }
@@ -211,7 +217,7 @@ public class RealEstate {
                     uploadProperty();
                     break;
                 case 2:
-                    System.exit(0);
+                    RealEstateMain.runApp();
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + num);

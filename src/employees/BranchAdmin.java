@@ -6,4 +6,12 @@ public class BranchAdmin extends Employee {
 		
 	}
 
+	public void payEmployee() {
+
+	}
+
+	public void payLandLord() {
+
+	}
 }
+

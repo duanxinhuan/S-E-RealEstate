@@ -18,7 +18,12 @@ public class Landlord extends VLCustomers {
     public void addProperty(Property property) {
         numOfRent++;
     }
-    
+
+    @Override
+    public void editDetails() {
+
+    }
+
     public int getNumOfRent() {
     	return this.numOfRent;
     }

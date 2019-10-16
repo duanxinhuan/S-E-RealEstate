@@ -1,5 +1,6 @@
 package customer;
 
+import property.Property;
 import realEstateException.InvalidPropertyIdFormatException;
 
 import java.util.ArrayList;
@@ -29,4 +30,9 @@ public abstract class VLCustomers extends Customers {
         if(!b)
             throw new InvalidPropertyIdFormatException();
     }
+
+    public abstract void addProperty(Property p);
+
+    public abstract void editDetails();
+
 }
