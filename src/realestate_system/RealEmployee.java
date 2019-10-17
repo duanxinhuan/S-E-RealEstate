@@ -175,7 +175,6 @@ public class RealEmployee {
 
     private void payEmployee() {
     	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
-    	// stally this function below needs to point to the employee object the branch admin is paying
     	branchAdmin.payEmployee(current_employee);
     }
 
