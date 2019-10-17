@@ -9,9 +9,11 @@ public class SalesConsultant extends Employee {
 	private final double beforeNegCommissionRate = 0.05;
 	private final double afterNegCommissionRate = 0.02;
 	private double commission;
+	private double salary;
 
-	public SalesConsultant(String employeeId, String employeeStatus, String password ) {
-		super(employeeId, employeeStatus, password );
+	public SalesConsultant(String employeeId, String employeeStatus, String password, double salary) {
+		super(employeeId, employeeStatus, password);
+		this.salary = salary;
 	}
 
 	public void sellProperty() {
@@ -39,11 +41,17 @@ public class SalesConsultant extends Employee {
 		return finalPrice;
 	}
 
-	public  void setFinalPrice(double finalPrice) {
+	public void setFinalPrice(double finalPrice) {
 		this.finalPrice = finalPrice;
+	}
+	
+	public double getSalary() {
+		return salary;
 	}
 
 	public void calculateCommission() {
 
 	}
+	
+	
 }

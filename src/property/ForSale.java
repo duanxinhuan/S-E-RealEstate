@@ -44,7 +44,6 @@ public class ForSale {
         this.assignedEmployee = emp.getEmployeeId();
     }
 
-
     public String getSaleId() {
         return this.forSaleId;
     }
