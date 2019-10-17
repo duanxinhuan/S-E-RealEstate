@@ -170,34 +170,7 @@ public class RealEmployee {
     }
 
     private void payEmployee() {
-        do{
-            System.out.println("1.pay Branch Manager" + "\n2.pay Sales Consultant" +
-                    "\n3.pay Property Manager" + "\n4.pay Branch Administrator" +
-                    "\n5.main menu" + "\n6.exit");
-            switch (option) {
-                case 1:
-                    payBranchManager();
-                    break;
-                case 2:
-                    paySalesConsultant();
-                    break;
-                case 3:
-                    payPropertyManager();
-                    break;
-                case 4:
-                    payBranchAdministrator();
-                    break;
-                case 5:
-                    startRealEmployee();
-                    break;
-                case 6:
-                    RealEstateMain.runApp();
-                    break;
-                case 7:
-                    System.out.println("Goodbye!");
-                    System.exit(0);
-            }
-        } while (option!=7);
+       
     }
 
     private void propertyManager(){
