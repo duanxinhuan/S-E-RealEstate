@@ -48,10 +48,6 @@ public class SalesConsultant extends Employee {
 	public double getSalary() {
 		return salary;
 	}
-
-	public void calculateCommission() {
-
-	}
 	
 	
 }
