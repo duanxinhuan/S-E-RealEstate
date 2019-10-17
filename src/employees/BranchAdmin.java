@@ -1,10 +1,12 @@
 package employees;
 
 import customer.Landlord;
+import property.Rental;
 
 public class BranchAdmin extends Employee {
 	
 	private double employeePayment;
+	private double landlordPayment;
 	
 	public BranchAdmin(String employeeId, String passWord, String name ) {
 		super(employeeId,passWord,name);
@@ -26,8 +28,10 @@ public class BranchAdmin extends Employee {
 		}
 	}
 
-	public void payLandLord(Landlord landlord) {
-		
+	public void payLandLord(Rental rental) {
+		// Pay the landlord associated with the rental id of this rental object parameter
+		landlordPayment = rental.getWeeklyRent() - rental.getManagementFee();
+		System.out.println("The Lanlord has been payed " + landlordPayment + " this week!");
 	}
 }
 
