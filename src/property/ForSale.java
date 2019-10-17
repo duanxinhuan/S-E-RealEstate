@@ -3,31 +3,31 @@ import customer.Landlord;
 import employees.Employee;
 import employees.SalesConsultant;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 public class ForSale {
     private String forSaleId;
-    private String Status = "W";
     private double minPrice;
-    private double commissionRate;
-//    private double finalPrice;  final price can be got from SalesConsultant class
-    private String assignedEmployee;
     private String status;
+    private double commissionRate;
+//    private double finalPrice;  final price can be obtained from SalesConsultant class
+    private String assignedEmployee;
     private boolean negotiate = true;
-    private HashMap<Integer,Offer> offerList = new HashMap<>();
+    private ArrayList<Offer> offerList = new ArrayList<>();
     private SalesConsultant sc;
 
 
-    private ForSale(double minPrice, double newCommissionRate) {
+    ForSale(double minPrice, double newCommissionRate) {
         this.minPrice = minPrice;
         this.commissionRate = newCommissionRate;
     }
 
     public ForSale(String saleId, String status, double minPrice, double newCommissionRate, String assignedEmployee,
                    Boolean negotiate) {
-        forSaleId = saleId;
-        Status = status;
+        this.forSaleId = saleId;
+        this.status = status;
         this.minPrice = minPrice;
-        commissionRate = newCommissionRate;
+        this.commissionRate = newCommissionRate;
         this.assignedEmployee = assignedEmployee;
         this.negotiate = negotiate;
     }
@@ -41,7 +41,7 @@ public class ForSale {
     }
 
     public void assign(Employee emp){
-        this.Status = "A";
+        this.status = "A";
         this.assignedEmployee = emp.getEmployeeId();
     }
 
@@ -67,17 +67,17 @@ public class ForSale {
     }
 
     public String getStatus() {
-        return this.Status;
+        return this.status;
     }
 
-    public HashMap<Integer, Offer> getOfferList() {
+    public ArrayList<Offer> getOfferList() {
         return this.offerList;
     }
 
     // add offer object into offer list
     public void addOffer(Offer offer) {
         for(int i=0; i<offerList.size(); i++) {
-            this.offerList.put(i,offer);
+            this.offerList.add(offer);
         }
     }
 

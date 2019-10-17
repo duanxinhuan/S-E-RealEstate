@@ -9,7 +9,7 @@ public class RealEstateMain {
         String option;
         RealEstate realEstate = new RealEstate();
         RealEmployee realEmployee = new RealEmployee();
-        System.out.println("Please choose customer or employee or end the program." +"\n input  customer  or employee or exit!");
+        System.out.println("-----------Please choose customer or employee or exit.----------");
         do{
             try {
                 option = sc.next();
@@ -17,8 +17,10 @@ public class RealEstateMain {
                     realEstate.startRealEstate();
                 else if(option.equals("employee"))
                     realEmployee.startRealEmployee();
-                else if(option.equals("exit"))
+                else if(option.equals("exit")) {
+                    System.out.println("Program End! GoodBye!");
                     System.exit(0);
+                }
                 else
                     System.out.println("wrong input, please input again");
             } catch (NullPointerException e) {

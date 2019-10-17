@@ -10,7 +10,7 @@ public class BranchManager extends Employee {
 
     }
 
-    public void assignEmployee(SalesConsultant sc) {
+    public void assignEmployee() {
 
     }
 }

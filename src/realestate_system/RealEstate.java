@@ -2,8 +2,10 @@ package realestate_system;
 
 import customer.*;
 import property.Application;
+import property.Offer;
 import property.Property;
 import realEstateException.*;
+import util.DateTime;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RealEstate {
@@ -19,9 +22,10 @@ public class RealEstate {
     private ArrayList<Property> pr = new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
     private ArrayList<Application> applicationList;
+    private ArrayList<Offer> offerList;
     Customers current_customer;
     private int choice;
-
+    private Buyer buyer;
 
 
     public void startRealEstate(){
@@ -114,7 +118,6 @@ public class RealEstate {
                 current_customer = new Landlord(cust_array[0],cust_array[1], cust_array[2],cust_array[3]);
                 landlordLogin();
                 break;
-
         }
 
     }
@@ -173,7 +176,6 @@ public class RealEstate {
             }
         }while(!valid);
 
-
         System.out.println("register successfully");
         System.out.println("here is your account details: ");
         System.out.println("password length: " + (passWord.length()));
@@ -181,8 +183,9 @@ public class RealEstate {
         LinkDatabase.register(passWord, custName, emailAddress);
     }
 
-    private void buyerLogin(){
 
+
+    private void buyerLogin(){
         do{
             System.out.println("enter 1 for add suburb, 2 for exit the program");
             int num=sc.nextInt();
@@ -191,6 +194,14 @@ public class RealEstate {
                     addSuburb();
                     break;
                 case 2:
+                    buyer.makeOffer();
+                    break;
+                case 3:
+                    buyer.withdrawOffer();
+                    break;
+                case 4:
+                    buyer.makeDownPayment();
+                case 5:
                     RealEstateMain.runApp();
             }
         }while(true);
@@ -300,8 +311,6 @@ public class RealEstate {
             return property;
     }
 
-
-
     private void getRecommendations (Customers c) {
         System.out.println("--------- Here is your recommendations :)----------");
         String s = "there is no recommendation for u, try to add more suburb.";
@@ -355,8 +364,6 @@ public class RealEstate {
             e.printStackTrace();
         }
     }
-
-
 
     private void uploadProperty() {
         String[] arr;
