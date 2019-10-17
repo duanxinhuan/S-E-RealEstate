@@ -1,6 +1,5 @@
 package employees;
 
-import customer.Landlord;
 import property.Rental;
 
 public class BranchAdmin extends Employee {
