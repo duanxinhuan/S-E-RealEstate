@@ -1,5 +1,6 @@
 package realestate_system;
 
+import employees.BranchAdmin;
 import employees.BranchManager;
 import employees.Employee;
 import employees.PropertyManager;
@@ -166,11 +167,15 @@ public class RealEmployee {
     }
 
     private void payLandLord() {
-
+    	BranchAdmin current_employee = new BranchAdmin("E123", "1234R","kkk");
+    	// stally this function below needs to point to the rental property that the landlord owns
+    	current_employee.payLandLord(rental);
     }
 
     private void payEmployee() {
-       
+    	BranchAdmin current_employee = new BranchAdmin("E123", "1234R","kkk");
+    	// stally this function below needs to point to the emplotee object the branch admin is paying
+    	current_employee.payEmployee(employee);
     }
 
     private void propertyManager(){
