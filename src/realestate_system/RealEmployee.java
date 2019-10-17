@@ -200,22 +200,6 @@ public class RealEmployee {
         } while (option!=7);
     }
 
-    private void payBranchManager() {
-
-    }
-
-    private void paySalesConsultant() {
-
-    }
-
-    private void payPropertyManager() {
-
-    }
-
-    private void payBranchAdministrator() {
-
-    }
-
     private void propertyManager(){
         current_employee = new PropertyManager("E123", "1234R","kkk");
         do{
