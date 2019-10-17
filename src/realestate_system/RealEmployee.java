@@ -21,6 +21,7 @@ public class RealEmployee {
     private Scanner sc = new Scanner(System.in);
     private SalesConsultant salesConsultant;
     private BranchManager branchManager;
+    private BranchAdmin branchAdmin;
 
     // this is used to initialize property.
 
@@ -79,7 +80,7 @@ public class RealEmployee {
                     salesConsultant.negotiateSale();
                     break;
                 case 3:
-                    salesConsultant.calculateCommission();
+                    salesConsultant.setCommission();
                 case 4:
                     startRealEmployee();
                     break;
@@ -167,15 +168,15 @@ public class RealEmployee {
     }
 
     private void payLandLord() {
-    	BranchAdmin current_employee = new BranchAdmin("E123", "1234R","kkk");
+    	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
     	// stally this function below needs to point to the rental property that the landlord owns
-    	current_employee.payLandLord(rental);
+    	branchAdmin.payLandLord(rental);
     }
 
     private void payEmployee() {
-    	BranchAdmin current_employee = new BranchAdmin("E123", "1234R","kkk");
-    	// stally this function below needs to point to the emplotee object the branch admin is paying
-    	current_employee.payEmployee(employee);
+    	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
+    	// stally this function below needs to point to the employee object the branch admin is paying
+    	branchAdmin.payEmployee(current_employee);
     }
 
     private void propertyManager(){
