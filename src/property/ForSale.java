@@ -28,7 +28,6 @@ public class ForSale {
         this.minPrice = minPrice;
         this.commissionRate = newCommissionRate;
         this.assignedEmployee = assignedEmployee;
-        this.negotiate = negotiate;
     }
 
     public void setSaleId(String saleId) {
@@ -69,10 +68,6 @@ public class ForSale {
         for(int i=0; i<offerList.size(); i++) {
             this.offerList.add(offer);
         }
-    }
-
-    public boolean getNegotiate() {
-        return this.negotiate;
     }
 
 
