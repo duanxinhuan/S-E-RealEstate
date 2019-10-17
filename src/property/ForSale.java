@@ -9,10 +9,9 @@ public class ForSale {
     private String forSaleId;
     private double minPrice;
     private String status;
+    private double finalPrice;
     private double commissionRate;
-//    private double finalPrice;  final price can be obtained from SalesConsultant class
     private String assignedEmployee;
-    private boolean negotiate = true;
     private ArrayList<Offer> offerList = new ArrayList<>();
     private SalesConsultant sc;
 
@@ -40,19 +39,11 @@ public class ForSale {
         return assignedEmployee;
     }
 
-    public void assign(Employee emp){
+    public void assign(Employee emp) {
         this.status = "A";
         this.assignedEmployee = emp.getEmployeeId();
     }
 
-    public void setCommissionRate() {
-       if (getNegotiate()){
-           commissionRate = 0.02;
-       }
-       else{
-           commissionRate = 0.05;
-       }
-    }
 
     public String getSaleId() {
         return this.forSaleId;
