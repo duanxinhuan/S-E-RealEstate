@@ -170,14 +170,14 @@ public class RealEmployee {
     private void payLandLord() {
     	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
     	// stally this function below needs to point to the rental property that the landlord owns
-    	branchAdmin.payLandLord(rental); // this needs to change
+    	branchAdmin.payLandLord(rental); // this needs to change to a selected rental property
     }
 
     private void payEmployee() {
     	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
     	// stally this function needs to select the employee in the database we want to pay,
     	// & not the current employee (which is always the branch admin in this case)
-    	branchAdmin.payEmployee(employee); // this needs to change
+    	branchAdmin.payEmployee(employee); // this needs to change to a selected employee
     }
 
     private void propertyManager(){
