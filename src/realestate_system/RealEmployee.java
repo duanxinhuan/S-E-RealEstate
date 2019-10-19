@@ -168,20 +168,20 @@ public class RealEmployee {
     }
 
     private void payLandLord() {
-    	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
+    	// BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk"); // this should be done in employee selection menu?
     	// stally this function below needs to point to the rental property that the landlord owns
     	branchAdmin.payLandLord(rental); // this needs to change to a selected rental property
     }
 
     private void payEmployee() {
-    	BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk");
+    	// BranchAdmin branchAdmin = new BranchAdmin("E123", "1234R","kkk"); // this should be done in employee selection menu?
     	// stally this function needs to select the employee in the database we want to pay,
     	// & not the current employee (which is always the branch admin in this case)
     	branchAdmin.payEmployee(employee); // this needs to change to a selected employee
     }
 
     private void propertyManager(){
-        current_employee = new PropertyManager("E123", "1234R","kkk");
+        current_employee = new PropertyManager("E123", "1234R","kkk"); // this should be done in employee selection menu?
         do{
             System.out.println( "1.assign a rental house" +"\n7.exit");
             option = sc.nextInt();
